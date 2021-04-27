@@ -148,7 +148,7 @@ nz_todo_9();
 function nz_todo_10() {
 	$a = '1';
 
-	if ( !empty( $a ) ) {
+	if ( ! empty( $a ) ) {
 		echo 'Verno!';
 	} else {
 		echo 'Ne Verno!';
@@ -179,7 +179,7 @@ nz_todo_11();
 <?php
 function nz_todo_12() {
 
-	if ( !isset( $a ) ) {
+	if ( ! isset( $a ) ) {
 		echo 'Verno!';
 	} else {
 		echo 'Ne Verno!';
@@ -232,7 +232,7 @@ nz_todo_14();
 function nz_todo_15() {
 	$a = 2;
 
-	if (  $a > 0 && $a < 5 ) {
+	if ( $a > 0 && $a < 5 ) {
 		echo 'Verno!';
 	} else {
 		echo 'Ne Verno!';
@@ -250,7 +250,7 @@ nz_todo_15();
 function nz_todo_16() {
 	$a = 2;
 
-	if (  0 === $a || 2 === $a ) {
+	if ( 0 === $a || 2 === $a ) {
 		echo $a += 7;
 	} else {
 		echo $a /= 10;
@@ -269,7 +269,7 @@ function nz_todo_17() {
 	$a = 1;
 	$b = 3;
 
-	if (  1 >= $a && 3 <= $b ) {
+	if ( 1 >= $a && 3 <= $b ) {
 		echo $a + $b;
 	} else {
 		echo $a - $b;
@@ -288,7 +288,7 @@ function nz_todo_18() {
 	$a = 4;
 	$b = 6;
 
-	if (  ($a > 2 && $a < 11) || ($b >= 6 && $b < 14) ) {
+	if ( ( $a > 2 && $a < 11 ) || ( $b >= 6 && $b < 14 ) ) {
 		echo 'Verno';
 	} else {
 		echo 'Ne Verno!';
@@ -305,11 +305,11 @@ nz_todo_18();
 function nz_todo_20() {
 	$day = 9;
 
-	if ( 11 >= $day) {
+	if ( 11 >= $day ) {
 		echo '1 Dekada';
-	} else if (21 >= $day){
+	} elseif ( 21 >= $day ) {
 		echo '2 Dekada';
-	} else if (31 >= $day) {
+	} elseif ( 31 >= $day ) {
 		echo '3 Dekada';
 	}
 }
@@ -324,15 +324,15 @@ nz_todo_20();
 function nz_todo_21() {
 	$month = 12;
 
-	if ( 2 >= $month) {
+	if ( 2 >= $month ) {
 		echo 'Winter';
-	} else if (5  >= $month){
+	} elseif ( 5 >= $month ) {
 		echo 'Sprint';
-	} else if (8  >= $month) {
+	} elseif ( 8 >= $month ) {
 		echo 'Summer';
-	} else if (11 >= $month) {
+	} elseif ( 11 >= $month ) {
 		echo 'Osen';
-	} else if (12  === $month) {
+	} elseif ( 12 === $month ) {
 		echo 'Winter';
 	}
 }
@@ -380,7 +380,7 @@ nz_todo_24();
 function nz_todo_25() {
 	$str = '123';
 
-	echo $str[0] +  $str[1] +  $str[2];
+	echo $str[0] + $str[1] + $str[2];
 }
 
 nz_todo_25();
@@ -392,17 +392,17 @@ nz_todo_25();
 Если это так - выведите 'да', в противном случае выведите 'нет'.</h2>
 <?php
 function nz_todo_26() {
-	$str  = '123123';
+	$str = '123123';
 
-	$sum1 = $str[0] +  $str[1] +  $str[2];
-	$sum2 = $str[3] +  $str[4] +  $str[5];
+	$sum1 = $str[0] + $str[1] + $str[2];
+	$sum2 = $str[3] + $str[4] + $str[5];
 
 	if ( $sum1 === $sum2 ) {
 		echo 'Da!';
 	} else {
 		echo 'Net!';
 	}
-	
+
 }
 
 nz_todo_26();

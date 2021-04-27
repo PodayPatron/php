@@ -32,7 +32,7 @@ nz_get_args();
 <h2>3.Создайте переменные $c=15 и $d=2. Просуммируйте их, а результат присвойте переменной $result. Выведите на экран значение переменной $result.</h2>
 <?php
 function nz_get_result() {
-	$c 		= 15;
+	$c      = 15;
 	$d      = 2;
 	$result = $c + $d;
 
@@ -64,8 +64,8 @@ show_num_sum();
 
 <?php
 function nz_unic_result() {
-	$a 		= 17;
-	$b 		= 10;
+	$a      = 17;
+	$b      = 10;
 	$c      = $a - $b;
 	$d      = 7;
 	$result = $c + $d;
