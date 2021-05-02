@@ -606,11 +606,11 @@ nz_todo39();
 <h2>40.Дан массив с элементами 1, 2, 3, 4, 5. Создайте новый массив, в котором будут лежать квадратные корни данных элементов. </h2>
 <?php
 function nz_todo40() {
-	$arr = [1, 2, 3, 4, 5];
-	$result = array_map('sqrt', $arr);
+	$arr    = array( 1, 2, 3, 4, 5 );
+	$result = array_map( 'sqrt', $arr );
 
 	echo '<pre>';
-	print_r($result);
+	print_r( $result );
 	echo '</pre>';
 }
 
@@ -621,13 +621,116 @@ nz_todo40();
 <h2>41. Дан массив с элементами '<b>php</b>', '<i>html</i>'. Создайте новый массив, в котором из элементов будут удалены теги. </h2>
 <?php
 function nz_todo41() {
-	
+	$arr    = array( '<b>php</b>', '<i>html</i>' );
+	$result = array_map( 'strip_tags', $arr );
 
 	echo '<pre>';
-	print_r($result);
+	print_r( $result );
 	echo '</pre>';
 }
 
 nz_todo41();
 ?>
 
+<!-- 42 -->
+<h2>42. Дан массив с элементами ' a ', ' b ', ' с '. Создайте новый массив, в котором будут данные элементы без концевых пробелов.</h2>
+<?php
+function nz_todo42() {
+	$arr    = array( ' a   ', ' b    ', ' с   ' );
+	$result = array_map( 'trim', $arr );
+
+	echo '<pre>';
+	print_r( $result );
+	echo '</pre>';
+}
+
+nz_todo42();
+?>
+
+<!-- 43 -->
+<h2>43. Дан массив с элементами 1, 2, 3, 4, 5 и массив с элементами 3, 4, 5, 6, 7. 
+Запишите в новый массив элементы, которые есть и в том, и в другом массиве.</h2>
+<?php
+function nz_todo43() {
+	$arr1   = array( 1, 2, 3, 4, 5 );
+	$arr2   = array( 3, 4, 5, 6, 7 );
+	$result = array_intersect( $arr1, $arr2 );
+
+	echo '<pre>';
+	print_r( $result );
+	echo '</pre>';
+}
+
+nz_todo43();
+?>
+
+<!-- 44 -->
+<h2>44.Дан массив с элементами 1, 2, 3, 4, 5 и массив с элементами 3, 4, 5, 6, 7. 
+Запишите в новый массив элементы, которые не присутствуют в обоих массивах одновременно. </h2>
+<?php
+function nz_todo44() {
+	$arr1   = array( 1, 2, 3, 4, 5 );
+	$arr2   = array( 3, 4, 5, 6, 7 );
+	$result = array_diff( $arr1, $arr2 );
+
+	echo '<pre>';
+	print_r( $result );
+	echo '</pre>';
+}
+
+nz_todo44();
+?>
+
+<!-- 45 -->
+<h2>45. Дана строка '1234567890'. Найдите сумму цифр из этой строки не используя цикл.</h2>
+<?php
+function nz_todo45() {
+	$str = '1234567890';
+	$arr = str_split( $str );
+
+	echo array_sum( $arr );
+}
+
+nz_todo45();
+?>
+
+<!-- 46 -->
+<h2>46. Создайте массив ['a'=>1, 'b'=2... 'z'=>26] не используя цикл</h2>
+<?php
+function nz_todo46() {
+
+	echo '<pre>';
+	print_r( array_combine( range( 'a', 'z' ), range( 1, 26 ) ) );
+	echo '</pre>';
+}
+
+nz_todo46();
+?>
+
+<!-- 47 -->
+<h2>47. </h2>
+<?php
+function nz_todo47() {
+
+	echo '<pre>';
+	print_r( array_chunk( range( 1, 9 ), 3 ) );
+	echo '</pre>';
+}
+
+nz_todo47();
+?>
+
+<!-- 48 -->
+<h2>48. </h2>
+<?php
+function nz_todo48() {
+	$arr    = array( 1, 2, 4, 5, 5 );
+	$result = array_unique( $arr );
+
+	rsort( $result );
+	echo $result[1];
+
+}
+
+nz_todo48();
+?>
