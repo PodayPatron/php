@@ -78,7 +78,7 @@ nz_todo_3();
 Если все верно - выведите 'Доступ разрешен!', в противном случае - 'Доступ запрещен!'.  </h2>
 
 <form action="" method="POST">
-	<input type="text" name="login4">
+	<input type="text" name="login4" placeholder="login">
 	<input type="password" name="pass4">
 	<input type="submit" name="submit">
 </form>
@@ -89,12 +89,12 @@ function nz_todo_4() {
 	if ( ! empty( $_POST['login4'] ) && ! empty( $_POST['pass4'] ) ) {
 		$get_users = file_get_contents( 'user.txt' );
 		$arr_data  = json_decode( $get_users, true );
-		$login     = htmlspecialchars( trim($_POST['login4']) );
-		$password  = htmlspecialchars( trim($_POST['pass4']) );
+		$login     = htmlspecialchars( trim( $_POST['login4'] ) );
+		$password  = htmlspecialchars( trim( $_POST['pass4'] ) );
 		$access    = false;
 
 		foreach ( $arr_data as $value ) {
-			if ( $value['login4'] === $login && $value['pass4'] === $password ) {
+			if ( $value['login'] === $login && $value['password'] === $password ) {
 				$access = true;
 			}
 		}
@@ -108,4 +108,59 @@ function nz_todo_4() {
 }
 
 nz_todo_4();
+?>
+
+<!-- 5 -->
+<h2>5. Спросите имя пользователя с помощью формы. Результат запишите в переменную $name. 
+Сделайте так, чтобы после отправки формы значения ее полей не пропадали. </h2>
+
+<?php
+function nz_todo_5() {
+	$user = '';
+
+	if (!empty($_GET['user'])) {
+		$user = htmlspecialchars($_GET['user']);
+
+		echo 'Your Name:  ' . $user;
+	}
+	?>
+
+	<form action="" method="GET">
+		<input type="text" name="user" value= "<?php echo $user ?>">
+		<input type="submit">
+	</form>
+
+	<?php
+}
+
+nz_todo_5();
+?>
+
+<!-- 6 -->
+<h2>6. Спросите у пользователя имя, а также попросите его ввести сообщение (textarea). 
+Сделайте так, чтобы после отправки формы значения его полей не пропадали.  </h2>
+
+<?php
+function nz_todo_6() {
+	$user = '';
+	$text = '';
+
+	if (!empty($_GET['user6']) && !empty($_GET['message'])) {
+		$user = htmlspecialchars($_GET['user6']);
+		$text = htmlspecialchars($_GET['message']);
+
+		echo 'Name:  ' . $user;
+	}
+	?>
+
+	<form action="" method="GET">
+		<input type="text" name="user6" value= "<?php echo $user ?>">
+		<textarea name="message" id="" cols="30" rows="10"><?php echo $text ?></textarea>
+		<input type="submit">
+	</form>
+
+	<?php
+}
+
+nz_todo_6();
 ?>

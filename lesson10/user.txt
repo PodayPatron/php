@@ -1,2 +1,5 @@
-"1": { "login" : "admin", "password" : "123456789" },
-"2": { "login" : "adm", "password" : "12345" },
+{
+	"1": { "login" : "login", "password" : "123456789" },
+	"2": { "login" : "log", "password" : "123456789" },
+	"3": { "login" : "123456", "password" : "123456" }
+}
