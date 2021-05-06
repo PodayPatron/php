@@ -75,12 +75,67 @@ nz_todo4();
 Если четное - пусть функция возвращает true, если нечетное - false. </h2>
 <?php
 function nz_isEven( $num ) {
-	if ( ($num % 2) === 0 ) {
-		echo 'true';
+	if ( ( $num % 2 ) === 0 ) {
+		return 'true';
 	} else {
-		echo 'false';
+		return 'false';
 	}
 }
 
-nz_isEven(12);
+echo nz_isEven( 2 );
+?>
+
+<!-- 6 -->
+<h2>6. Дан массив с целыми числами. Создайте из него новый массив, где останутся лежать только четные из этих чисел. 
+Для этого используйте вспомогательную функцию isEven из предыдущей задачи.</h2>
+<?php
+function nz_todo6() {
+	$arr     = array( 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 );
+	$new_arr = '';
+
+	for ( $i = 1; $i <= count( $arr ); $i++ ) {
+		if ( nz_isEven( $i ) === 'true' ) {
+			$new_arr .= $i . '</br>';
+		}
+	}
+
+	echo $new_arr;
+}
+
+nz_todo6();
+?>
+
+<!-- 7 -->
+<h2>7.Сделайте функцию getDivisors,
+которая параметром принимает число и возвращает массив его делителей (чисел, на которое делится данное число).</h2>
+<?php
+function nz_getDivisors( $num1 ) {
+	$del = 0;
+	$array = [];
+
+	while( $del < abs( $num1 ) ){ 
+		$del++;
+		if(( $num1 % $del ) == 0 ){
+			$array[] = $del;
+		}
+	}
+
+	return $array;
+}
+
+ar(nz_getDivisors(20));
+?>
+
+<!-- 8 -->
+<h2>8. Сделайте функцию getCommonDivisors, которая параметром принимает 2 числа, а возвращает массив их общих делителей. 
+Для этого используйте вспомогательную функцию getDivisors из предыдущей задачи.</h2>
+<?php
+function nz_getCommonDivisors($num1, $num2) {
+	$arr1 = nz_getDivisors($num1);
+	$arr2 = nz_getDivisors($num2);
+
+	return array_intersect( $arr1, $arr2 );
+}
+
+ar(nz_getCommonDivisors(12, 18));
 ?>
