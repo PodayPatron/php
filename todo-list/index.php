@@ -1,5 +1,6 @@
 <?php
-	add_todo_data();
+	nz_add_todo_data();
+	nz_remove_todo();
 ?>
 
 <!DOCTYPE html>
@@ -23,21 +24,20 @@
 
 			<?php
 				require 'configDB.php';
-
 				$query = $pdo->query( ' SELECT * FROM `tasks` ORDER BY `id` DESC');
 
 			while ( $row = $query->fetch( PDO::FETCH_OBJ ) ) {
-				?>
+			?>
 
-						<li class="todo-item">
-							<input class="checkbox" type="checkbox">
-							<label class="title"><?php echo $row->task; ?></label>
-							<input class="textfield" type="text">
-							<button type="button" class="btn btn-outline-warning edit"><i class="fal fa-edit"></i></button>
-							<a href="<?php echo $row->id; ?>"><button type="button" class="btn btn-outline-danger delete"><i class="fal fa-trash-alt"></i></button></a>
-						</li>
+				<li class="todo-item">
+					<input class="checkbox" type="checkbox">
+					<label class="title"><?php echo $row->task; ?></label>
+					<input class="textfield" type="text">
+					<button type="submit" class="btn btn-outline-warning edit"><i class="fal fa-edit"></i></button>
+					<a href="?id=<?php echo $row->id;?> "><button name="button" type="submit" class="btn btn-outline-danger delete"><i class="fal fa-trash-alt"></i></button></a>
+				</li>
 
-					<?php
+				<?php
 			}
 			?>
 
@@ -51,11 +51,11 @@
 </html>
 
 <?php
-function add_todo_data() {
+function nz_add_todo_data() {
 	$task = $_POST['task'];
-	if ( $task == '' ) {
-		err_symbols();
-		exit();
+	if ( $task === '' ) {
+		nz_err_symbols();
+		return '';
 	}
 
 	require 'configDB.php';
@@ -65,25 +65,22 @@ function add_todo_data() {
 	$query->execute( array( 'task' => $task ) );
 }
 
-function err_symbols() {
+function nz_err_symbols() {
 	?>
-
 		<div class="alert alert-primary" role="alert">
 			Введите само задание...
 		</div>
-
 	<?php
 }
 ?>
 
 <?php
-function delete() {
-    require 'configDB.php';
+function nz_remove_todo() {
+	require 'configDB.php';
 
-    $id = $_GET['id'];
-
-    $sql   = 'DELETE FROM `tasks` WHERE `id` = ?';
-    $query = $pdo->prepare( $sql );
-    $query->execute( [$id] ); 
+	$id    = $_GET['id'];
+	$sql   = 'DELETE FROM `tasks` WHERE `id` = ?';
+	$query = $pdo->prepare( $sql );
+	$query->execute( array( $id ) );
 }
 ?>
