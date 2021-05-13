@@ -30,23 +30,32 @@
 			?>
 
 				<li class="todo-item">
-					<input class="checkbox" type="checkbox">
-					<label class="title"><?php echo $row->task; ?></label>
+					<?php if( $row->checked ){ ?>
+						<input data-todo-id ="<?php echo $row->id; ?>" class="checkbox"  type="checkbox"  checked />
+						<label class="title checked"><?php echo $row->task; ?></label>
+					<?php } else { ?>
+						<input data-todo-id ="<?php echo $row->id; ?>" class="checkbox"  type="checkbox"  />
+						<label class="title"><?php echo $row->task; ?></label>
+					<?php } ?>	
+
 					<input class="textfield" type="text">
-					<button type="submit" class="btn btn-outline-warning edit"><i class="fal fa-edit"></i></button>
-					<a href="?id=<?php echo $row->id;?> "><button name="button" type="submit" class="btn btn-outline-danger delete"><i class="fal fa-trash-alt"></i></button></a>
+					<a href="?id=<?php ?>"><button type="submit" class="btn btn-outline-warning edit"><i class="fal fa-edit"></i></button></a>
+					<a href="?id=<?php echo $row->id;?>"><button name="button" type="submit" class="btn btn-outline-danger delete"><i class="fal fa-trash-alt"></i></button></a>
 				</li>
 
 				<?php
 			}
 			?>
 
-			<form action="" class="todo-form" method="POST">
+			<form action="" class="todo-form" method="POST" autocomplete="off">
 				<input id="task" name="task" type="text">
 				<button type="submit" name="sendTask" class="btn btn-outline-success btn-add"><i class="fal fa-calendar-plus"></i></button>
 			</form>
 			
 		</main>
+
+		<script src="./jquery-3.6.0.min.js"></script>
+		<script src="./main.js"></script>
 	</body>
 </html>
 
@@ -60,7 +69,7 @@ function nz_add_todo_data() {
 
 	require 'configDB.php';
 
-	$sql   = 'INSERT INTO tasks (task) VALUES (:task)';
+	$sql   = 'INSERT INTO `tasks` (task) VALUES (:task)';
 	$query = $pdo->prepare( $sql );
 	$query->execute( array( 'task' => $task ) );
 }
