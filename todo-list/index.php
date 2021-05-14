@@ -1,6 +1,7 @@
 <?php
 	nz_add_todo_data();
 	nz_remove_todo();
+	nz_edit_btn();
 ?>
 
 <!DOCTYPE html>
@@ -24,13 +25,13 @@
 
 			<?php
 				require 'configDB.php';
-				$query = $pdo->query( ' SELECT * FROM `tasks` ORDER BY `id` DESC');
+				$query = $pdo->query( ' SELECT * FROM `tasks` ORDER BY `id` DESC' );
 
 			while ( $row = $query->fetch( PDO::FETCH_OBJ ) ) {
-			?>
+				?>
 
 				<li class="todo-item">
-					<?php if( $row->checked ){ ?>
+					<?php if ( $row->checked ) { ?>
 						<input data-todo-id ="<?php echo $row->id; ?>" class="checkbox"  type="checkbox"  checked />
 						<label class="title checked"><?php echo $row->task; ?></label>
 					<?php } else { ?>
@@ -39,8 +40,8 @@
 					<?php } ?>	
 
 					<input class="textfield" type="text">
-					<a href="?id=<?php ?>"><button type="submit" class="btn btn-outline-warning edit"><i class="fal fa-edit"></i></button></a>
-					<a href="?id=<?php echo $row->id;?>"><button name="button" type="submit" class="btn btn-outline-danger delete"><i class="fal fa-trash-alt"></i></button></a>
+					<a href="?edit=<?php echo $row->id; ?>"><button type="submit" class="btn btn-outline-warning edit"><i class="fal fa-edit"></i></button></a>
+					<a href="?id=<?php echo $row->id; ?>"><button name="button" type="submit" class="btn btn-outline-danger delete"><i class="fal fa-trash-alt"></i></button></a>
 				</li>
 
 				<?php
@@ -80,6 +81,39 @@ function nz_err_symbols() {
 			Введите само задание...
 		</div>
 	<?php
+}
+?>
+
+<?php
+function nz_edit_btn() {
+	require 'configDB.php';
+
+	if ( isset( $_GET['edit'] ) ) {
+		$id     = $_GET['edit'];
+		$update = true;
+		$res    = $pdo->prepare( 'SELECT * FROM `tasks` WHERE id=:id' );
+		$res->bindParam( ':id', $id );
+		$res->execute();
+		$var = $res->fetchAll();
+
+		var_dump( $var );
+	}
+
+	try {
+		$pdo->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+
+		$stmt = $row->prepare( 'UPDATE `tasks` SET task = :task WHERE id = :id' );
+		$res2->bindParam( ':id', $id );
+		$res3->bindParam( ':task', $task );
+		$stmt->execute();
+
+		echo $stmt->rowCount() . ' records UPDATED successfully';
+
+	} catch ( PDOException $e ) {
+		echo $pdo . '<br>' . $e->getMessage();
+	}
+
+	$row = null;
 }
 ?>
 
