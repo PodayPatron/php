@@ -99,21 +99,21 @@ function nz_edit_btn() {
 		var_dump( $var );
 	}
 
-	try {
-		$pdo->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+	// try {
+	// 	$pdo->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
 
-		$stmt = $row->prepare( 'UPDATE `tasks` SET task = :task WHERE id = :id' );
-		$res2->bindParam( ':id', $id );
-		$res3->bindParam( ':task', $task );
-		$stmt->execute();
+	// 	$stmt = $row->prepare( 'UPDATE `tasks` SET task = :task WHERE id = :id' );
+	// 	$res2->bindParam( ':id', $id );
+	// 	$res3->bindParam( ':task', $task );
+	// 	$stmt->execute();
 
-		echo $stmt->rowCount() . ' records UPDATED successfully';
+	// 	echo $stmt->rowCount() . ' records UPDATED successfully';
 
-	} catch ( PDOException $e ) {
-		echo $pdo . '<br>' . $e->getMessage();
-	}
+	// } catch ( PDOException $e ) {
+	// 	echo $pdo . '<br>' . $e->getMessage();
+	// }
 
-	$row = null;
+	// $row = null;
 }
 ?>
 
