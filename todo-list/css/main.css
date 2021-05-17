@@ -11,6 +11,13 @@ body {
     text-decoration: line-through;
 }
 
+.checkbox {
+    color: #fff;
+    background-color: #F0DB4F;
+    border: none;
+    font-weight: 700;
+}
+
 
 ul {
     list-style: none;
@@ -97,7 +104,7 @@ input {
     font-family: 'Consolas', Arial, Helvetica, sans-serif;
     font-size: 1rem;
     color: #757575;
-    padding: .5em;
+    padding: 2px 5px;
     border-radius: 2px;
     border: 1px solid lightgray;
     outline: none;

@@ -1,17 +1,8 @@
 <?php
 
 if ( isset( $_POST['id'] ) ) {
-	$dsn = 'mysql:host=192.168.1.132;dbname=todo';
-	$pdo = new PDO( $dsn, 'nazar', 'nazar' );
-
-	// try {
-	// 	$pdo = new PDO( $dsn, 'nazar', 'nazar' );
-	// 	$pdo->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
-	// } catch ( PDOException $e ) {
-	// 	echo 'Connection failed : ' . $e->getMessage();
-	// }
-
-	$id = $_POST['id'];
+	require 'configDB.php';
+	$id  = $_POST['id'];
 
 	if ( empty( $id ) ) {
 		echo 'error';
@@ -34,12 +25,12 @@ if ( isset( $_POST['id'] ) ) {
 			echo 'error';
 		}
 
-		//$pdo = null;
 		return '';
+		
 	}
 } else {
 
-	header( 'Location: /index.php' );
+	header( 'Location: index.php' );
 }
 
-?>
+
