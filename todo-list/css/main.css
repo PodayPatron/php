@@ -9,6 +9,7 @@ body {
 .checked {
     color: #999 !important;
     text-decoration: line-through;
+    transition: .2s ease-in-out all;
 }
 
 .checkbox {
@@ -16,6 +17,13 @@ body {
     background-color: #F0DB4F;
     border: none;
     font-weight: 700;
+    padding: 0px 6px;
+}
+
+.qqq {
+    color: #F0DB4F;
+    background-color: #999;
+    transition: .2s ease-in-out all;
 }
 
 

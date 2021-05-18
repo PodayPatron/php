@@ -26,7 +26,6 @@ function nz_add_todo_data() {
 	$sql   = 'INSERT INTO `tasks` (task) VALUES (:task)';
 	$query = $pdo->prepare( $sql );
 	$query->execute( array( 'task' => $task ) );
-
 }
 ?>
 

@@ -33,7 +33,7 @@
 
 			<li class="todo-item">
 				<?php if ( $row->checked ) { ?>
-					<input data-todo-id ="<?php echo $row->id; ?>" class="checkbox"  type="submit" value="X" >
+					<input data-todo-id ="<?php echo $row->id; ?>" class="checkbox qqq"  type="submit" value="X" >
 					<label class="title checked"><?php echo $row->task; ?></label>
 				<?php } else { ?>
 					<input data-todo-id ="<?php echo $row->id; ?>" class="checkbox"  type="submit"   value="X" >
