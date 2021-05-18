@@ -1,5 +1,4 @@
 <?php
-
 if ( isset( $_POST['id'] ) ) {
 	require 'configDB.php';
 	$id  = $_POST['id'];

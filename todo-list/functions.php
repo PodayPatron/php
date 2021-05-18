@@ -1,19 +1,27 @@
-<?php 
+<?php
+/**
+ * update_data_task
+ *
+ * @return string
+ */
 function update_data_task() {
 	require 'configDB.php';
 
-	if ( isset($_POST['send_update']) ) {
+	if ( isset( $_POST['send_update'] ) ) {
 		$another = $pdo->prepare( ' UPDATE `tasks` SET task = :task WHERE id = :id ' );
-		$another -> bindParam(':id' , $_POST['id']);
-		$another -> bindParam(':task' , $_POST['update']);
-		$another -> execute();
+		$another->bindParam( ':id', $_POST['id'] );
+		$another->bindParam( ':task', $_POST['update'] );
+		$another->execute();
 
 		echo "<script type='text/javascript'> document.location = 'index.php'; </script>";
 	}
 }
-?>
 
-<?php
+/**
+ * nz_add_todo_data
+ *
+ * @return string
+ */
 function nz_add_todo_data() {
 	$task = $_POST['task'];
 	if ( $task === '' ) {
@@ -27,9 +35,12 @@ function nz_add_todo_data() {
 	$query = $pdo->prepare( $sql );
 	$query->execute( array( 'task' => $task ) );
 }
-?>
 
-<?php
+/**
+ * nz_edit_btn
+ *
+ * @return string
+ */
 function nz_edit_btn() {
 	require 'configDB.php';
 
@@ -42,9 +53,12 @@ function nz_edit_btn() {
 		$var = $res->fetchAll();
 	}
 }
-?>
 
-<?php
+/**
+ * nz_remove_todo
+ *
+ * @return string
+ */
 function nz_remove_todo() {
 	require 'configDB.php';
 
@@ -53,10 +67,13 @@ function nz_remove_todo() {
 	$query = $pdo->prepare( $sql );
 	$query->execute( array( $id ) );
 }
-?>
 
-<?php
-	function nz_err_symbols() {
+/**
+ * nz_err_symbols
+ *
+ * @return string
+ */
+function nz_err_symbols() {
 	?>
 		<div class="alert alert-primary" role="alert">
 			Введите само задание...
