@@ -34,8 +34,7 @@ function nz_add_todo_data() {
 	$query = $pdo->prepare( $sql );
 	$query->execute( array( 'task' => $task ) );
 
-	//header('Location: index.php');
-
+	// header('Location: index.php');
 }
 
 /**
@@ -49,7 +48,19 @@ function nz_edit_btn() {
 		$res = $pdo->prepare( 'SELECT * FROM `tasks` WHERE id=:id' );
 		$res->bindParam( ':id', $id );
 		$res->execute();
-		$res->fetchAll();
+		$result = $res->fetchAll();
+
+		foreach ( $result as $row ) {
+			?>
+				<form action="" class="todo-form form-style" method="POST" autocomplete="off">
+					<input id="task" name="update" value="<?php echo $row['task']; ?>" type="text">
+					<button type="submit" name="send_update" class="btn btn-outline-success btn-add">Update</button>
+					<input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+				</form>
+			<?php
+		}
+		?>
+		<?php
 	}
 }
 
@@ -76,8 +87,12 @@ function nz_err_symbols() {
 	<?php
 }
 
+/**
+ * Checked todo list.
+ *
+ * @return string
+ */
 function nz_checked_btn() {
-
 	if ( isset( $_POST['id'] ) ) {
 		global $pdo;
 		$id = $_POST['id'];

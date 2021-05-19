@@ -3,7 +3,8 @@
 	nz_add_todo_data();
 	nz_remove_todo();
 	nz_edit_btn();
-	nz_checked_btn()
+	nz_checked_btn();
+	update_data_task();
 ?>
 
 <!DOCTYPE html>
@@ -41,7 +42,7 @@
 				<?php } ?>	
 
 				<input class="textfield" type="text">
-				<a href="edit.php?edit=<?php echo $row->id; ?>">
+				<a href="?edit=<?php echo $row->id; ?>">
 					<button type="submit" class="btn btn-outline-warning edit">
 						<i class="fal fa-edit"></i>
 					</button>

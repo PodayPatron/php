@@ -225,3 +225,12 @@ header h1 {
     max-width: 710px;
     margin: 0 auto;
 }
+
+.form-style {
+    width: 100px;  
+    min-width: 660px;
+    margin: 0 auto;
+    border-top: 0;
+    background-color: #F0DB4F;
+    border-radius: 10px;
+}
