@@ -34,7 +34,7 @@ ul {
 }
 
 
-button {
+.button {
     background: 0 0;
     border: none;
     border-radius: 2px;
@@ -61,15 +61,15 @@ button {
     vertical-align: middle;
 }
 
-button:hover {
+.button:hover {
     background-color: rgba(158,158,158,.2);
 }
 
-button:active {
+.button:active {
     background-color: rgba(158,158,158,.4);
 }
 
-button.icon {
+.button .icon {
     border-radius: 50%;
     font-size: 24px;
     height: 32px;
@@ -82,7 +82,7 @@ button.icon {
     line-height: normal;
 }
 
-button .material-icons {
+.button .material-icons {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -90,22 +90,6 @@ button .material-icons {
     line-height: 24px;
     width: 24px;
     vertical-align: middle;
-}
-
-.edit {
-    margin-right: 10px;
-}
-
-.edit:hover {
-    color:#fff;
-}
-
-.btn-add {
-    border: none;
-}
-
-.fa-calendar-plus {
-    font-size: 18px;
 }
 
 input {
@@ -178,14 +162,6 @@ header h1 {
     display: none;
 }
 
-.todo-item .textfield {
-    display: none;
-}
-
-.todo-item.editing .textfield {
-    display: block;
-}
-
 .todo-item button {
     opacity: 0;
     transition: all .2s;
@@ -233,4 +209,20 @@ header h1 {
     border-top: 0;
     background-color: #F0DB4F;
     border-radius: 10px;
+}
+
+.edit {
+    margin-right: 10px;
+}
+
+.edit:hover {
+    color:#fff;
+}
+
+.btn-add {
+    border: none;
+}
+
+.fa-calendar-plus {
+    font-size: 18px;
 }
