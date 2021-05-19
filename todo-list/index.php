@@ -26,28 +26,26 @@
 		</header>
 
 		<?php
-			global $pdo;
-			$query = $pdo->query( ' SELECT * FROM `tasks` ORDER BY `id` DESC' );
-
-		while ( $row = $query->fetch( PDO::FETCH_OBJ ) ) {
+		$result = nz_order_list();
+		foreach ( $result as $row ) {
 			?>
 
 			<li class="todo-item">
-				<?php if ( $row->checked ) { ?>
-					<input data-todo-id ="<?php echo $row->id; ?>" class="checkbox qqq" type="submit" value="X">
-					<label class="title checked"><?php echo $row->task; ?></label>
+				<?php if ( $row['checked'] ) { ?>
+					<input data-todo-id ="<?php echo $row['id']; ?>" class="checkbox qqq" type="submit" value="X">
+					<label class="title checked"><?php echo $row['task']; ?></label>
 				<?php } else { ?>
-					<input data-todo-id ="<?php echo $row->id; ?>" class="checkbox" type="submit" value="X">
-					<label class="title"><?php echo $row->task; ?></label>
+					<input data-todo-id ="<?php echo $row['id']; ?>" class="checkbox" type="submit" value="X">
+					<label class="title"><?php echo $row['task']; ?></label>
 				<?php } ?>	
 
 				<input class="textfield" type="text">
-				<a href="?edit=<?php echo $row->id; ?>">
+				<a href="?edit=<?php echo $row['id']; ?>">
 					<button type="submit" class="btn btn-outline-warning edit">
 						<i class="fal fa-edit"></i>
 					</button>
 				</a>
-				<a href="?id=<?php echo $row->id; ?>">
+				<a href="?id=<?php echo $row['id']; ?>">
 					<button name="button" type="submit" class="btn btn-outline-danger delete">
 						<i class="fal fa-trash-alt"></i>
 					</button>

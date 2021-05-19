@@ -1,6 +1,7 @@
 <?php
 	$dsn = 'mysql:host=192.168.1.132;dbname=todo';
 	$pdo = new PDO( $dsn, 'nazar', 'nazar' );
+	require 'helpers.php';
 
 /**
  * Update data task.
@@ -44,7 +45,7 @@ function nz_edit_btn() {
 	global $pdo;
 
 	if ( isset( $_GET['edit'] ) ) {
-		$id  = $_GET['edit'];
+		$id  = esc_html( $_GET['edit'] );
 		$res = $pdo->prepare( 'SELECT * FROM `tasks` WHERE id=:id' );
 		$res->bindParam( ':id', $id );
 		$res->execute();
@@ -70,7 +71,7 @@ function nz_edit_btn() {
 function nz_remove_todo() {
 	global $pdo;
 
-	$id    = $_GET['id'];
+	$id    = esc_html( $_GET['id'] );
 	$sql   = 'DELETE FROM `tasks` WHERE `id` = ?';
 	$query = $pdo->prepare( $sql );
 	$query->execute( array( $id ) );
@@ -95,7 +96,7 @@ function nz_err_symbols() {
 function nz_checked_btn() {
 	if ( isset( $_POST['id'] ) ) {
 		global $pdo;
-		$id = $_POST['id'];
+		$id = esc_html( $_POST['id'] );
 
 		if ( empty( $id ) ) {
 			echo 'error';
@@ -121,5 +122,18 @@ function nz_checked_btn() {
 			return '';
 		}
 	}
+}
+
+/**
+ * Order list.
+ *
+ * @return array
+ */
+function nz_order_list() {
+	global $pdo;
+
+	$query = $pdo->query( 'SELECT * FROM `tasks` ORDER BY `id` DESC' );
+	$res   = $query->fetchAll();
+	return $res;
 }
 ?>
