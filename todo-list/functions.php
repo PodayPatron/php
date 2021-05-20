@@ -13,31 +13,28 @@ function update_data_task() {
 		return;
 	}
 
-	$update_task = $pdo->prepare( ' UPDATE `tasks` SET task = :task WHERE id = :id ' );
-	$update_task->bindParam( ':id', $_POST['id'] );
-	$update_task->bindParam( ':task', $_POST['update'] );
+	$update_task = $pdo->prepare( 'UPDATE `tasks` SET task = :task WHERE id = :id' );
+	$update_task->bindParam( ':id', esc_html( $_POST['id'] ) );
+	$update_task->bindParam( ':task', esc_html( $_POST['update'] ) );
 	$update_task->execute();
 
-	header( 'Location: index.php' );
+	nz_redirect( 'index.php' );
 }
 
 /**
  * Add todo data.
  */
 function nz_add_todo_data() {
+	global $pdo;
+
 	$task = $_POST['task'];
-	if ( $task === '' ) {
+	if ( '' === $task ) {
 		nz_err_symbols();
 		return;
 	}
 
-	global $pdo;
-
-	$sql   = 'INSERT INTO `tasks` (task) VALUES (:task)';
-	$query = $pdo->prepare( $sql );
+	$query = $pdo->prepare( 'INSERT INTO `tasks` (task) VALUES (:task)' );
 	$query->execute( array( 'task' => $task ) );
-
-	//header('Location: index.php');
 }
 
 /**
@@ -50,9 +47,8 @@ function nz_edit_btn() {
 		return;
 	}
 
-	$id  = esc_html( $_GET['edit'] );
 	$res = $pdo->prepare( 'SELECT * FROM `tasks` WHERE id=:id' );
-	$res->bindParam( ':id', $id );
+	$res->bindParam( ':id', esc_html( $_GET['edit'] ) );
 	$res->execute();
 	$result = $res->fetchAll();
 
@@ -65,18 +61,17 @@ function nz_edit_btn() {
 			</form>
 		<?php
 	}
-	?>
-	<?php
 }
 
 /**
  * Remove todo item.
  */
 function nz_remove_todo() {
+	global $pdo;
+
 	if ( ! isset( $_GET['delete'] ) ) {
 		return;
 	}
-	global $pdo;
 
 	$id    = esc_html( $_GET['delete'] );
 	$sql   = 'DELETE FROM `tasks` WHERE `id` = ?';
@@ -101,36 +96,17 @@ function nz_err_symbols() {
  * @return string
  */
 function nz_checked_btn() {
-	if ( ! isset( $_GET['id'] ) && $_GET['action'] !== 'checked' ) {
+	global $pdo;
+
+	if ( empty( $_GET['id'] ) && $_GET['action'] !== 'checked' ) {
 		return;
 	}
 
-	global $pdo;
-	$id = esc_html( $_GET['id'] );
+	$id           = esc_html( $_GET['id'] );
+	$user_checked = esc_html( $_GET['done'] );
 
-	if ( empty( $id ) ) {
-		echo 'error';
-
-	} else {
-		$row = $pdo->prepare( 'SELECT id, checked FROM `tasks` WHERE id=?' );
-		$row->execute( array( $id ) );
-
-		$todo    = $row->fetch();
-		$user_id = $todo['id'];
-		$checked = $todo['checked'];
-
-		$user_checked = $checked ? 0 : 1;
-
-		$res = $pdo->query( "UPDATE `tasks` SET checked=$user_checked WHERE id=$user_id" );
-
-		if ( $res ) {
-			echo $checked;
-		} else {
-			echo 'error';
-		}
-
-		return '';
-	}
+	$res = $pdo->prepare( 'UPDATE `tasks` SET checked=? WHERE id=?' );
+	$res->execute( array( $user_checked, $id ) );
 }
 
 /**
@@ -144,5 +120,9 @@ function nz_order_list() {
 	$query = $pdo->query( 'SELECT * FROM `tasks` ORDER BY `id` DESC' );
 	$res   = $query->fetchAll();
 	return $res;
+}
+
+function nz_redirect( $data ) {
+	header( 'Location: ' . $data );
 }
 ?>

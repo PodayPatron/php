@@ -5,6 +5,7 @@
 	nz_remove_todo();
 	nz_edit_btn();
 	nz_checked_btn();
+	$result = nz_order_list();
 ?>
 
 <!DOCTYPE html>
@@ -25,39 +26,39 @@
 			<h1>Todo</h1>
 		</header>
 
-		<?php
-		$result = nz_order_list();
-		foreach ( $result as $row ) {
-			?>
+		<?php foreach ( $result as $row ): ?>
 
 			<li class="todo-item">
 				<?php if ( $row['checked'] ) : ?>
-					<input data-todo-id ="<?php echo $row['id']; ?>" class="checkbox qqq" type="submit" value="X">
+					<input data-todo-id ="<?php echo $row['id']; ?>" data-done="<?php echo --$row['checked']; ?>" 
+					class="checkbox qqq" type="submit" value="X" areal-label="checkbox">
+
 					<label class="title checked"><?php echo $row['task']; ?></label>
 				<?php else : ?>
-					<input data-todo-id ="<?php echo $row['id']; ?>" class="checkbox" type="submit" value="X">
+					<input data-todo-id ="<?php echo $row['id']; ?>" data-done="<?php echo ++$row['checked']; ?>" 
+					class="checkbox" type="submit" value="X"  areal-label="checkbox">
+
 					<label class="title"><?php echo $row['task']; ?></label>
 				<?php endif; ?>	
 
 				<a class="btn btn-outline-warning edit button" href="?edit=<?php echo $row['id']; ?>">
 					<i class="fal fa-edit"></i>
 				</a>
-				<a  class="btn btn-outline-danger delete button" href="?delete=<?php echo $row['id']; ?>">
+				<a class="btn btn-outline-danger delete button" href="?delete=<?php echo $row['id']; ?>">
 					<i class="fal fa-trash-alt"></i>
 				</a>
 			</li>
 
 			<?php
-		}
+		endforeach;
 		?>
 
 		<form action="" class="todo-form" method="POST" autocomplete="off">
-			<input id="task" name="task" type="text">
+			<input id="task" name="task" type="text" aria-label="Input text">
 			<button type="submit" name="sendTask" class="btn btn-outline-success btn-add button">
 				<i class="fal fa-calendar-plus"></i>
 			</button>
 		</form>
-		
 	</main>
 
 	<script src="./jquery-3.6.0.min.js"></script>

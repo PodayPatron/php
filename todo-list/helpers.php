@@ -1,6 +1,6 @@
 <?php
 /**
- * Esc html.
+ * Esc_html
  *
  * @param  mixed $data
  * renders data
@@ -11,7 +11,9 @@ function esc_html( $data ) {
 
 /**
  * Ar
- * array output.
+ *
+ * @param  mixed $data => array
+ * array output
  */
 function ar( $data ) {
 	echo '<pre>';
