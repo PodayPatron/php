@@ -166,7 +166,7 @@ $result = nz_get_blogs_item();
 								</div>
 							</div>
 							<div class="artic-category">
-								Category
+								<?php echo $row['category']; ?>
 							</div>
 							<div class="artic-text">
 								<h5 class="blog-title">
@@ -179,6 +179,9 @@ $result = nz_get_blogs_item();
 										By
 									</span>
 									<span><?php echo $row['author']; ?></span>
+								</div>
+								<div class="comments-all">
+									<span class="comments-line"><i class="fal fa-comments"></i><?php echo nz_count_comments( $row['id'] ); ?></span>
 								</div>
 								<span><?php echo $row['short_text']; ?></span>
 								<footer class="article-footer">

@@ -784,7 +784,7 @@ small {
 
 .artic-category {
 	position: relative;
-	max-width: 100px;
+	max-width: 120px;
     padding: 10px 15px;
     margin: 0 auto;
     background-color: #fff;
@@ -907,7 +907,8 @@ small {
 // CREATE PAGE
 // ------------------------------------------
 
-.creating-section {
+.creating-section,
+.reviews {
 	padding-top: 50px;
 	padding-bottom: 50px;
 	background-color: #f8f8f8;
@@ -929,8 +930,10 @@ small {
 		border: 2px solid #A43939;
 	}
 
-	textarea {
+	textarea,
+	select {
 		border-radius: 5px;	
+		margin-bottom: 20px;
 	}
 }
 
@@ -958,4 +961,101 @@ small {
 
 .blog-inner-date {
 	font-size: 16px;
+}
+
+// ------------------------------------------------------------------------------------------------
+// REVIEWS
+// ------------------------------------------------------------------------------------------------
+
+.rev-info-box {
+	padding: 40px 30px;
+	background-color: #fff;
+}
+
+.user-info {
+	display: flex;
+	align-items: center;
+	margin-bottom: 21px;
+}
+
+.user-photo {
+	position: relative;
+	padding-right: 11px;
+
+	img {
+		border-radius: 50%;
+	}
+
+	> a {
+
+		&::after {
+			@include link();
+		}
+	}
+}
+
+.user-name {
+	padding-top: 8px;
+	margin-bottom: 6px;
+
+	a {
+		color: inherit;
+	}
+}
+
+.user-position,
+.date {
+	font-size: 13px;
+}
+
+.arrows {
+	position: relative;
+}
+
+.arr-left,
+.arr-right {
+	position: absolute;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	cursor: pointer;
+
+	i {
+		font-size: 20px;
+		color: rgba(138, 132, 132, 0.9);
+		font-weight: 400;
+	}
+}
+
+.arr-left {
+	left: -40px;
+}
+
+.arr-right {
+	right: -40px;
+}
+
+.coments {
+	margin-bottom: 50px;
+}
+
+.reviews-form {
+	input {
+		margin-bottom: 20px;
+	}
+
+	input,
+	textarea {
+		border-radius: 10px;
+	}
+
+	button {
+		border-radius: 5px;
+	}
+}
+
+.comments-line {
+
+	i {
+		margin-right: 7px;
+	}
 }

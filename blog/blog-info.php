@@ -2,6 +2,8 @@
 require 'functions.php';
 
 $result = nz_get_post();
+$result_reviews = nz_get_comments( $_GET['id'] );
+nz_create_comment();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -154,6 +156,46 @@ $result = nz_get_post();
 					</div>
 				</div>
 			<?php endforeach; ?>
+
+		</div>
+	</section>
+
+	<section class="reviews">
+		<div class="container">
+
+		<?php foreach ( $result_reviews as $row_rev ): ?>
+			<div class="row coments">
+
+				<div class="col-lg-12">
+					<div class="info-box info-box-verical rev-info-box">
+							<div class="user-info">
+								<div class="user-photo">
+									<a href="#"></a>
+									<img src="./uploads/merak-testimonials-2.jpg" alt="">
+								</div>
+								<div class="user-title">
+									<h5 class="user-name"><?php echo $row_rev['name']; ?></h5>
+									<p class="user-position">
+									<?php echo $row_rev['work']; ?>
+									</p>
+								</div>
+							</div>
+							<p class="info-text">
+								<?php echo $row_rev['text']; ?>
+							</p>
+					</div>
+				</div>
+
+			</div>
+		<?php endforeach; ?>
+
+		<form action="" method="POST" class="reviews-form">
+			<input placeholder="Your Name" type="text" name="acc-name" id="">
+			<input placeholder="Specialization" type="text" name="acc-spec" id="">
+			<textarea placeholder="Yout Comment" name="acc-text" id="" cols="30" rows="10"></textarea>
+			<input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
+			<button type="submit" class="btn" name="submit-rev">Add </button>
+		</form>
 
 		</div>
 	</section>

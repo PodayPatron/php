@@ -4,10 +4,18 @@
 	$dsn = 'mysql:host=192.168.1.132;dbname=blog';
 	$pdo = new PDO( $dsn, 'nazar', 'nazar' );
 
+/**
+ * Redirect.
+ */
 function nz_redirect( $data ) {
 	header( 'Location: ' . $data );
 }
 
+/**
+ * Get blogs item.
+ *
+ * @return array
+ */
 function nz_get_blogs_item() {
 	global $pdo;
 
@@ -17,6 +25,41 @@ function nz_get_blogs_item() {
 	return $res;
 }
 
+/**
+ * Get comments.
+ *
+ * @return array
+ */
+function nz_get_comments( $id ) {
+	global $pdo;
+
+	$query = $pdo->prepare( 'SELECT * FROM `reviews` WHERE post_id = :post_id ORDER BY id DESC' );
+	$query->bindParam( ':post_id', $id );
+	$query->execute();
+	$res = $query->fetchAll();
+
+	return $res;
+}
+
+/**
+ * Count comments.
+ *
+ * @return array
+ */
+function nz_count_comments( $id ) {
+	global $pdo;
+
+	$query = $pdo->prepare( 'SELECT COUNT(*) FROM `reviews` WHERE post_id = :post_id' );
+	$query->bindParam( ':post_id', $id );
+	$query->execute();
+	$res = $query->fetchColumn();
+
+	return $res;
+}
+
+/**
+ * Create item blog.
+ */
 function create_item_blog() {
 	global $pdo;
 
@@ -35,13 +78,14 @@ function create_item_blog() {
 			$dest_path = 'uploads/' . $file_name;
 			move_uploaded_file( $file_tmp_path, $dest_path );
 
-			$query = $pdo->prepare( "INSERT INTO `blogs` (title, author, short_text, text, img) VALUES (:title, :author, :short_text, :text, '$file_name')" );
+			$query = $pdo->prepare( "INSERT INTO `blogs` (title, author, short_text, text, img, category) VALUES (:title, :author, :short_text, :text, '$file_name', :category)" );
 			$query->execute(
 				array(
 					'title'      => $_POST['title'],
 					'author'     => $_POST['author'],
 					'short_text' => $_POST['short-text'],
 					'text'       => $_POST['content'],
+					'category'   => $_POST['category'],
 				)
 			);
 
@@ -56,6 +100,49 @@ function create_item_blog() {
 	}
 }
 
+/**
+ * Create comment.
+ */
+function nz_create_comment() {
+	global $pdo;
+
+	if ( empty( $_POST['acc-name'] ) ) {
+		echo 'Input Your Name';
+		return;
+
+	} elseif ( empty( $_POST['acc-spec'] ) ) {
+		echo 'Input Your Specialisation';
+		return;
+
+	} elseif ( empty( $_POST['acc-text'] ) ) {
+		echo 'Input Some Comment!';
+		return;
+	}
+
+	if ( isset( $_POST['submit-rev'] ) ) {
+		$query = $pdo->prepare( 'INSERT INTO `reviews` (name, work, text, post_id) VALUES (:name, :work, :text, :post_id)' );
+		$query->execute(
+			array(
+				'name'    => $_POST['acc-name'],
+				'work'    => $_POST['acc-spec'],
+				'text'    => $_POST['acc-text'],
+				'post_id' => $_POST['id'],
+			)
+		);
+
+		if ( $query ) {
+			nz_redirect( 'index.php' );
+		} else {
+			echo 'Eror, try again.';
+		}
+	}
+}
+
+/**
+ * Get post.
+ *
+ * @return array
+ */
 function nz_get_post() {
 	global $pdo;
 

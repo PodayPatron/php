@@ -136,6 +136,12 @@ create_item_blog();
 
 			<form enctype = "multipart/form-data" method="POST" class="create-main-form" method="POST">
 				<input type="file" name="uploaded_file" accept="image/jpeg,image/png">
+				<select name="category">
+					<option> -Select Category- </option>
+					<option> Clothes </option>
+					<option> Shoes </option>
+					<option> Fragrances </option>
+				</select>
 
 				<input type="text" placeholder="Blog Title" class="form-control my-3 bg-dark text-white text-center" name="title">
 				<input type="text" placeholder="Author" class="form-control my-3 bg-dark text-white text-center" name="author">
