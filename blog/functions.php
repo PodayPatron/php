@@ -106,27 +106,29 @@ function create_item_blog() {
 function nz_create_comment() {
 	global $pdo;
 
-	if ( empty( $_POST['acc-name'] ) ) {
-		echo 'Input Your Name';
-		return;
+	if ( isset( $_POST['submit-rev'] ) ) {
+		if ( empty( $_POST['acc-name'] ) ) {
+			echo 'Input Your Name';
+			return;
 
-	} elseif ( empty( $_POST['acc-spec'] ) ) {
-		echo 'Input Your Specialisation';
-		return;
+		} elseif ( empty( $_POST['acc-spec'] ) ) {
+			echo 'Input Your Specialisation';
+			return;
 
-	} elseif ( empty( $_POST['acc-text'] ) ) {
-		echo 'Input Some Comment!';
-		return;
+		} elseif ( empty( $_POST['acc-text'] ) ) {
+			echo 'Input Some Comment!';
+			return;
+		}
 	}
 
 	if ( isset( $_POST['submit-rev'] ) ) {
 		$query = $pdo->prepare( 'INSERT INTO `reviews` (name, work, text, post_id) VALUES (:name, :work, :text, :post_id)' );
 		$query->execute(
 			array(
-				'name'    => $_POST['acc-name'],
-				'work'    => $_POST['acc-spec'],
-				'text'    => $_POST['acc-text'],
-				'post_id' => $_POST['id'],
+				'name'    => esc_html( $_POST['acc-name'] ),
+				'work'    => esc_html( $_POST['acc-spec'] ),
+				'text'    => esc_html( $_POST['acc-text'] ),
+				'post_id' => esc_html( $_POST['id'] ),
 			)
 		);
 
