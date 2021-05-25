@@ -33,74 +33,12 @@ create_item_blog();
 						<div class="info-box header-info-box">
 							<div class="ample-text">Ample end might folly quiet one set spoke.</div>
 						</div>
-						<div class="info-box header-info-box box-border">
-							<div>USD</div>
-							<i class="arrow-down fas fa-chevron-down"></i>
-						</div>
-						<div class="info-box header-info-box">
-							<div class="usa-flag">
-								<img src="./uploads/united-states.svg" alt="">
-							</div>
-							<div>USA</div>
-							<i class="arrow-down fas fa-chevron-down"></i>
-						</div>	
 					</div>
 
 				</div>
 			</div>
 		</div>
-		<!-- HEADER MAIN-->
-		<div class="header-main header-row">
-			<div class="container">
-				<div class="header-row-inner">
-					<div class="header-col-left flex-align flex-shrink">
 
-						<div class="main-logo">
-							<a href="#">
-								<img src="./uploads/merak-logo.svg" alt="">
-							</a>
-						</div>
-
-					</div>
-					<div class="header-col-center">
-
-						<form class="header-search flex-align" action="">
-							<button class="form-btn center-icon">
-								<i class="fal fa-search"></i>
-							</button>
-							<input placeholder="Search for products" type="text" name="" id="">
-							<div class="header-select">
-								<span></span>
-								<select class="header-select-inner" name="">
-									<option value="0">Select Category</option>
-									<option value="1">1</option>
-									<option value="2">2</option>
-								</select>
-							</div>
-						</form>
-
-					</div>
-					<div class="header-col-right flex-align">
-						<div class="burger">
-							<i class="fas fa-bars"></i>
-						</div>
-
-						<div class="info-box sign-box">
-							<i class="icons-main-header fal fa-user-alt"></i>
-							<div>Login / Register</div>
-						</div>
-						<div class="info-box sign-box">
-							<i class="icons-main-header far fa-heart"></i>
-							<div>Wishlist</div>
-						</div>
-						<div class="info-box sign-box">
-							<i class="icons-main-header fal fa-shopping-bag"></i>
-							<div>2 <span class="light-color">/ $280.00</span></div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 
 		<!--HEADER BOTTOM-->
 		<div class="header-bottom header-row">

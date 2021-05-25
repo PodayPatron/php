@@ -4,8 +4,11 @@
 	$dsn = 'mysql:host=192.168.1.132;dbname=blog';
 	$pdo = new PDO( $dsn, 'nazar', 'nazar' );
 
+
 /**
  * Redirect.
+ *
+ * @param  mixed $data
  */
 function nz_redirect( $data ) {
 	header( 'Location: ' . $data );
@@ -20,14 +23,15 @@ function nz_get_blogs_item() {
 	global $pdo;
 
 	$query = $pdo->query( 'SELECT * FROM `blogs` ORDER BY id DESC' );
-	$res   = $query->fetchAll();
 
-	return $res;
+	return $query->fetchAll();
 }
 
+
 /**
- * Get comments.
+ * Get Comments.
  *
+ * @param mixed $id
  * @return array
  */
 function nz_get_comments( $id ) {
@@ -36,14 +40,15 @@ function nz_get_comments( $id ) {
 	$query = $pdo->prepare( 'SELECT * FROM `reviews` WHERE post_id = :post_id ORDER BY id DESC' );
 	$query->bindParam( ':post_id', $id );
 	$query->execute();
-	$res = $query->fetchAll();
 
-	return $res;
+	return $query->fetchAll();
 }
+
 
 /**
  * Count comments.
  *
+ * @param  mixed $id
  * @return array
  */
 function nz_count_comments( $id ) {
@@ -52,9 +57,8 @@ function nz_count_comments( $id ) {
 	$query = $pdo->prepare( 'SELECT COUNT(*) FROM `reviews` WHERE post_id = :post_id' );
 	$query->bindParam( ':post_id', $id );
 	$query->execute();
-	$res = $query->fetchColumn();
 
-	return $res;
+	return $query->fetchColumn();
 }
 
 /**
@@ -62,6 +66,10 @@ function nz_count_comments( $id ) {
  */
 function create_item_blog() {
 	global $pdo;
+
+	if ( ! isset( $_POST['submit'] ) ) {
+		return;
+	}
 
 	if ( $pdo->connect_error ) {
 		die( 'Connection failed: ' . $pdo->connect_error );
@@ -74,11 +82,11 @@ function create_item_blog() {
 		$file_extension          = strtolower( end( $array ) );
 		$allowed_file_extensions = array( 'jpg', 'gif', 'png' );
 
-		if ( in_array( $file_extension, $allowed_file_extensions ) ) {
+		if ( in_array( $file_extension, $allowed_file_extensions, true ) ) {
 			$dest_path = 'uploads/' . $file_name;
 			move_uploaded_file( $file_tmp_path, $dest_path );
 
-			$query = $pdo->prepare( "INSERT INTO `blogs` (title, author, short_text, text, img, category) VALUES (:title, :author, :short_text, :text, '$file_name', :category)" );
+			$query = $pdo->prepare( 'INSERT INTO `blogs` (title, author, short_text, text, img, category) VALUES (:title, :author, :short_text, :text, :img, :category)' );
 			$query->execute(
 				array(
 					'title'      => $_POST['title'],
@@ -86,6 +94,7 @@ function create_item_blog() {
 					'short_text' => $_POST['short-text'],
 					'text'       => $_POST['content'],
 					'category'   => $_POST['category'],
+					'img'        => $file_name,
 				)
 			);
 
@@ -106,19 +115,24 @@ function create_item_blog() {
 function nz_create_comment() {
 	global $pdo;
 
-	if ( isset( $_POST['submit-rev'] ) ) {
-		if ( empty( $_POST['acc-name'] ) ) {
-			echo 'Input Your Name';
-			return;
+	if ( ! isset( $_POST['submit-rev'] ) ) {
+		return;
+	}
 
-		} elseif ( empty( $_POST['acc-spec'] ) ) {
-			echo 'Input Your Specialisation';
-			return;
+	if ( empty( $_POST['acc-name'] ) ) {
+		nz_add_errors( 'Input Your Name');
+		return;
+	}
 
-		} elseif ( empty( $_POST['acc-text'] ) ) {
-			echo 'Input Some Comment!';
-			return;
-		}
+	if ( empty( $_POST['acc-spec'] ) ) {
+		nz_add_errors( 'Input Your Namsadsaddsae');
+		return;
+
+	}
+
+	if ( empty( $_POST['acc-text'] ) ) {
+		nz_add_errors( 'Input Your coment');
+		return;
 	}
 
 	if ( isset( $_POST['submit-rev'] ) ) {
@@ -133,7 +147,7 @@ function nz_create_comment() {
 		);
 
 		if ( $query ) {
-			nz_redirect( 'index.php' );
+			nz_redirect( 'blog-info.php?id=' . $_POST['id'] );
 		} else {
 			echo 'Eror, try again.';
 		}

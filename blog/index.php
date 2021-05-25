@@ -2,6 +2,7 @@
 require 'functions.php';
 
 $result = nz_get_blogs_item();
+nz_echo_errors();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,74 +34,12 @@ $result = nz_get_blogs_item();
 						<div class="info-box header-info-box">
 							<div class="ample-text">Ample end might folly quiet one set spoke.</div>
 						</div>
-						<div class="info-box header-info-box box-border">
-							<div>USD</div>
-							<i class="arrow-down fas fa-chevron-down"></i>
-						</div>
-						<div class="info-box header-info-box">
-							<div class="usa-flag">
-								<img src="./uploads/united-states.svg" alt="">
-							</div>
-							<div>USA</div>
-							<i class="arrow-down fas fa-chevron-down"></i>
-						</div>	
 					</div>
 
 				</div>
 			</div>
 		</div>
-		<!-- HEADER MAIN-->
-		<div class="header-main header-row">
-			<div class="container">
-				<div class="header-row-inner">
-					<div class="header-col-left flex-align flex-shrink">
-
-						<div class="main-logo">
-							<a href="#">
-								<img src="./uploads/merak-logo.svg" alt="">
-							</a>
-						</div>
-
-					</div>
-					<div class="header-col-center">
-
-						<form class="header-search flex-align" action="">
-							<button class="form-btn center-icon">
-								<i class="fal fa-search"></i>
-							</button>
-							<input placeholder="Search for products" type="text" name="" id="">
-							<div class="header-select">
-								<span></span>
-								<select class="header-select-inner" name="">
-									<option value="0">Select Category</option>
-									<option value="1">1</option>
-									<option value="2">2</option>
-								</select>
-							</div>
-						</form>
-
-					</div>
-					<div class="header-col-right flex-align">
-						<div class="burger">
-							<i class="fas fa-bars"></i>
-						</div>
-
-						<div class="info-box sign-box">
-							<i class="icons-main-header fal fa-user-alt"></i>
-							<div>Login / Register</div>
-						</div>
-						<div class="info-box sign-box">
-							<i class="icons-main-header far fa-heart"></i>
-							<div>Wishlist</div>
-						</div>
-						<div class="info-box sign-box">
-							<i class="icons-main-header fal fa-shopping-bag"></i>
-							<div>2 <span class="light-color">/ $280.00</span></div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+		
 
 		<!--HEADER BOTTOM-->
 		<div class="header-bottom header-row">
@@ -109,32 +48,11 @@ $result = nz_get_blogs_item();
 				<div class="header-row-inner">
 					<div class="header-col header-col-left flex-align">
 						<ul class="main-nav">
-							<li>
-								<a href="#">
-									Home
-									<i class="fal fa-chevron-down"></i>
-								</a>
-							</li>
-							<li >
-								<a href="./_merak-shop.html">
-									Shop
-									<i class="fal fa-chevron-down"></i>
-								</a></li>
 							<li class="active">
 								<a href="#">
 									Blog
-									<i class="fal fa-chevron-down"></i>
-								</a></li>
-							<li>
-								<a href="#">
-									About us
-									<i class="fal fa-chevron-down"></i>
-								</a></li>
-							<li>
-								<a href="#">
-									Contact us
-									<i class="fal fa-chevron-down"></i>
-								</a></li>
+								</a>
+							</li>
 						</ul>
 					</div>
 					<div class="header-col-right">
@@ -162,7 +80,9 @@ $result = nz_get_blogs_item();
 						<article class="inner-article text-center">
 							<div class="art-img">
 								<div class="img-scale">
-									<a href="blog-info.php?id=<?php echo $row['id']; ?>"><img src="./uploads/<?php echo $row['img']; ?>" alt="" srcset=""></a>
+									<a href="blog-info.php?id=<?php echo $row['id']; ?>">
+										<img src="./uploads/<?php echo $row['img']; ?>" alt="" srcset="">
+									</a>
 								</div>
 							</div>
 							<div class="artic-category">
@@ -170,20 +90,31 @@ $result = nz_get_blogs_item();
 							</div>
 							<div class="artic-text">
 								<h5 class="blog-title">
-									<a href="blog-info.php?id=<?php echo $row['id']; ?>" ><?php echo $row['title']; ?></a>
+									<a href="blog-info.php?id=<?php echo $row['id']; ?>">
+										<?php echo $row['title']; ?>
+									</a>
 								</h5>
 								<div class="date">
-									<span class="date-text"><?php echo $row['date']; ?></span>
+									<span class="date-text">
+										<?php echo $row['date']; ?>
+									</span>
 									<span class="date-text">
 										<img class="author" src="./img/merak-testimonials-3.jpg" alt="">
 										By
 									</span>
-									<span><?php echo $row['author']; ?></span>
+									<span>
+										<?php echo $row['author']; ?>
+									</span>
 								</div>
 								<div class="comments-all">
-									<span class="comments-line"><i class="fal fa-comments"></i><?php echo nz_count_comments( $row['id'] ); ?></span>
+									<span class="comments-line">
+										<i class="fal fa-comments"></i>
+										<?php echo nz_count_comments( $row['id'] ); ?>
+									</span>
 								</div>
-								<span><?php echo $row['short_text']; ?></span>
+								<span>
+									<?php echo $row['short_text']; ?>
+								</span>
 								<footer class="article-footer">
 									<div class="continue">
 										<a href="blog-info.php?id=<?php echo $row['id']; ?>">
