@@ -2482,7 +2482,22 @@ small {
 }
 
 .comments-line i {
-  margin-right: 7px;
+  margin-right: 70px;
+}
+
+.errors-wrapper {
+  position: absolute;
+  top: 130px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #e64949a1;
+  width: 380px;
+  padding: 20px;
+  color: #FFF;
+  border-radius: 5px;
+  text-transform: uppercase;
+  text-align: center;
+  z-index: 1000;
 }
 
 /*# sourceMappingURL=style.css.map */

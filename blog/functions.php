@@ -71,9 +71,37 @@ function create_item_blog() {
 		return;
 	}
 
-	if ( $pdo->connect_error ) {
-		die( 'Connection failed: ' . $pdo->connect_error );
+	if ( empty( $_POST['title'] ) ) {
+		nz_add_errors( 'Write Your Blog Title' );
 	}
+
+	if ( empty( $_POST['author'] ) ) {
+		nz_add_errors( 'Who is the author of this blog ?' );
+	}
+
+	if ( empty( $_POST['short-text'] ) ) {
+		nz_add_errors( 'Please, write short text!' );
+	}
+
+	if ( empty( $_POST['content'] ) ) {
+		nz_add_errors( 'Write some content !' );
+	}
+
+	if ( empty( $_POST['category'] ) ) {
+		nz_add_errors( 'Select some categhory !' );
+	}
+
+	if ( empty( $_FILES['uploaded_file'] ) ) {
+		nz_add_errors( 'Please select an image file to upload.' );
+	}
+
+	if ( nz_get_check_error() ) {
+		return;
+	}
+
+	// if ( $pdo->connect_error ) {
+	// die( 'Connection failed: ' . $pdo->connect_error );
+	// }
 
 	if ( isset( $_FILES['uploaded_file'] ) && $_FILES['uploaded_file']['error'] === UPLOAD_ERR_OK ) {
 		$file_tmp_path           = $_FILES['uploaded_file']['tmp_name'];
@@ -101,11 +129,9 @@ function create_item_blog() {
 			if ( $query ) {
 				nz_redirect( 'index.php' );
 			} else {
-				echo 'File upload failed, please try again.';
+				nz_add_errors( 'File upload failed, please try again.' );
 			}
 		}
-	} else {
-		echo 'Please select an image file to upload.';
 	}
 }
 
@@ -120,23 +146,22 @@ function nz_create_comment() {
 	}
 
 	if ( empty( $_POST['acc-name'] ) ) {
-		nz_add_errors( 'Input Your Name');
-		return;
+		nz_add_errors( 'Input Your Name' );
 	}
 
 	if ( empty( $_POST['acc-spec'] ) ) {
-		nz_add_errors( 'Input Your Namsadsaddsae');
-		return;
-
+		nz_add_errors( 'Input Your Specialization' );
 	}
 
 	if ( empty( $_POST['acc-text'] ) ) {
-		nz_add_errors( 'Input Your coment');
+		nz_add_errors( 'Input Your coment' );
+	}
+
+	if ( nz_get_check_error() ) {
 		return;
 	}
 
-	if ( isset( $_POST['submit-rev'] ) ) {
-		$query = $pdo->prepare( 'INSERT INTO `reviews` (name, work, text, post_id) VALUES (:name, :work, :text, :post_id)' );
+	$query = $pdo->prepare( 'INSERT INTO `reviews` (name, work, text, post_id) VALUES (:name, :work, :text, :post_id)' );
 		$query->execute(
 			array(
 				'name'    => esc_html( $_POST['acc-name'] ),
@@ -146,11 +171,10 @@ function nz_create_comment() {
 			)
 		);
 
-		if ( $query ) {
-			nz_redirect( 'blog-info.php?id=' . $_POST['id'] );
-		} else {
-			echo 'Eror, try again.';
-		}
+	if ( $query ) {
+		nz_redirect( 'blog-info.php?id=' . $_POST['id'] );
+	} else {
+		nz_add_errors( 'Eror, try again.' );
 	}
 }
 

@@ -1,6 +1,7 @@
 <?php
 require 'functions.php';
 create_item_blog();
+nz_echo_errors();
 ?>
 
 <!DOCTYPE html>
