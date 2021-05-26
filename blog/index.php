@@ -127,7 +127,7 @@ nz_echo_errors();
 								</div>
 								<div class="comments-all">
 									<span class="comments-line">
-										<a href="blog-info.php?id=<?php echo $row['id']; ?>">
+										<a href="blog-info.php?id=<?php echo $row['id'] . '#1'; ?>">
 											<i class="fal fa-comments"></i>
 											<?php echo nz_count_comments( $row['id'] ); ?>
 										</a>
