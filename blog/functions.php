@@ -47,7 +47,7 @@ function create_item_blog() {
 	}
 
 	if ( empty( $_POST['author'] ) ) {
-		nz_add_errors( 'Who is the author of this blog ?' );
+		nz_add_errors( 'Input author' );
 	}
 
 	if ( empty( $_POST['short-text'] ) ) {
