@@ -23,7 +23,7 @@ function nz_get_blogs_item( $category = '' ) {
 
 	if ( $category && 'all' !== $category ) {
 		$query = $pdo->prepare( 'SELECT * FROM `blogs` WHERE category = :category ORDER BY id DESC' );
-		$query->bindParam(':category', $category );
+		$query->bindParam( ':category', $category );
 	} else {
 		$query = $pdo->prepare( 'SELECT * FROM `blogs` ORDER BY id DESC' );
 	}
@@ -84,11 +84,11 @@ function create_item_blog() {
 	$query = $pdo->prepare( 'INSERT INTO `blogs` (title, author, short_text, text, img, category) VALUES (:title, :author, :short_text, :text, :img, :category)' );
 	$query->execute(
 		array(
-			'title'      => $_POST['title'],
-			'author'     => $_POST['author'],
-			'short_text' => $_POST['short-text'],
-			'text'       => $_POST['content'],
-			'category'   => $_POST['category'],
+			'title'      => esc_html( $_POST['title'] ),
+			'author'     => esc_html( $_POST['author'] ),
+			'short_text' => esc_html( $_POST['short-text'] ),
+			'text'       => esc_html( $_POST['content'] ),
+			'category'   => esc_html( $_POST['category'] ),
 			'img'        => $file_name,
 		)
 	);
@@ -195,8 +195,7 @@ function nz_get_post() {
 }
 
 /**
- * Create_select item. 
- *
+ * Create_select item.
  */
 function nz_create_select() {
 	global $pdo;
@@ -216,7 +215,7 @@ function nz_create_select() {
 	$query = $pdo->prepare( 'INSERT INTO `categories` (text) VALUES (:category)' );
 	$query->execute(
 		array(
-			'category'   => esc_html( $_POST['select-input'] ),
+			'category' => esc_html( $_POST['select-input'] ),
 		)
 	);
 
