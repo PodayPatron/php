@@ -4,7 +4,6 @@
 	$dsn = 'mysql:host=192.168.1.132;dbname=blog';
 	$pdo = new PDO( $dsn, 'nazar', 'nazar' );
 
-
 /**
  * Redirect.
  *
@@ -19,46 +18,18 @@ function nz_redirect( $data ) {
  *
  * @return array
  */
-function nz_get_blogs_item() {
+function nz_get_blogs_item( $category = '' ) {
 	global $pdo;
 
-	$query = $pdo->query( 'SELECT * FROM `blogs` ORDER BY id DESC' );
-
-	return $query->fetchAll();
-}
-
-
-/**
- * Get Comments.
- *
- * @param mixed $id
- * @return array
- */
-function nz_get_comments( $id ) {
-	global $pdo;
-
-	$query = $pdo->prepare( 'SELECT * FROM `reviews` WHERE post_id = :post_id ORDER BY id DESC' );
-	$query->bindParam( ':post_id', $id );
+	if ( $category && 'all' !== $category ) {
+		$query = $pdo->prepare( 'SELECT * FROM `blogs` WHERE category = :category ORDER BY id DESC' );
+		$query->bindParam(':category', $category );
+	} else {
+		$query = $pdo->prepare( 'SELECT * FROM `blogs` ORDER BY id DESC' );
+	}
 	$query->execute();
 
 	return $query->fetchAll();
-}
-
-
-/**
- * Count comments.
- *
- * @param  mixed $id
- * @return array
- */
-function nz_count_comments( $id ) {
-	global $pdo;
-
-	$query = $pdo->prepare( 'SELECT COUNT(*) FROM `reviews` WHERE post_id = :post_id' );
-	$query->bindParam( ':post_id', $id );
-	$query->execute();
-
-	return $query->fetchColumn();
 }
 
 /**
@@ -91,18 +62,6 @@ function create_item_blog() {
 		nz_add_errors( 'Select some categhory !' );
 	}
 
-	if ( empty( $_FILES['uploaded_file'] ) ) {
-		nz_add_errors( 'Please select an image file to upload.' );
-	}
-
-	if ( nz_get_check_error() ) {
-		return;
-	}
-
-	// if ( $pdo->connect_error ) {
-	// die( 'Connection failed: ' . $pdo->connect_error );
-	// }
-
 	if ( isset( $_FILES['uploaded_file'] ) && $_FILES['uploaded_file']['error'] === UPLOAD_ERR_OK ) {
 		$file_tmp_path           = $_FILES['uploaded_file']['tmp_name'];
 		$file_name               = $_FILES['uploaded_file']['name'];
@@ -113,26 +72,64 @@ function create_item_blog() {
 		if ( in_array( $file_extension, $allowed_file_extensions, true ) ) {
 			$dest_path = 'uploads/' . $file_name;
 			move_uploaded_file( $file_tmp_path, $dest_path );
-
-			$query = $pdo->prepare( 'INSERT INTO `blogs` (title, author, short_text, text, img, category) VALUES (:title, :author, :short_text, :text, :img, :category)' );
-			$query->execute(
-				array(
-					'title'      => $_POST['title'],
-					'author'     => $_POST['author'],
-					'short_text' => $_POST['short-text'],
-					'text'       => $_POST['content'],
-					'category'   => $_POST['category'],
-					'img'        => $file_name,
-				)
-			);
-
-			if ( $query ) {
-				nz_redirect( 'index.php' );
-			} else {
-				nz_add_errors( 'File upload failed, please try again.' );
-			}
 		}
+	} else {
+		nz_add_errors( 'Please select an image file to upload.' );
 	}
+
+	if ( nz_get_check_error() ) {
+		return;
+	}
+
+	$query = $pdo->prepare( 'INSERT INTO `blogs` (title, author, short_text, text, img, category) VALUES (:title, :author, :short_text, :text, :img, :category)' );
+	$query->execute(
+		array(
+			'title'      => $_POST['title'],
+			'author'     => $_POST['author'],
+			'short_text' => $_POST['short-text'],
+			'text'       => $_POST['content'],
+			'category'   => $_POST['category'],
+			'img'        => $file_name,
+		)
+	);
+
+	if ( $query ) {
+		nz_redirect( 'index.php' );
+	} else {
+		nz_add_errors( 'File upload failed, please try again.' );
+	}
+}
+
+/**
+ * Get Comments.
+ *
+ * @param mixed $id
+ * @return array
+ */
+function nz_get_comments( $id ) {
+	global $pdo;
+
+	$query = $pdo->prepare( 'SELECT * FROM `reviews` WHERE post_id = :post_id ORDER BY id DESC' );
+	$query->bindParam( ':post_id', $id );
+	$query->execute();
+
+	return $query->fetchAll();
+}
+
+/**
+ * Count comments.
+ *
+ * @param  mixed $id
+ * @return array
+ */
+function nz_count_comments( $id ) {
+	global $pdo;
+
+	$query = $pdo->prepare( 'SELECT COUNT(*) FROM `reviews` WHERE post_id = :post_id' );
+	$query->bindParam( ':post_id', $id );
+	$query->execute();
+
+	return $query->fetchColumn();
 }
 
 /**
@@ -172,7 +169,7 @@ function nz_create_comment() {
 		);
 
 	if ( $query ) {
-		nz_redirect( 'blog-info.php?id=' . $_POST['id'] );
+		nz_redirect( 'blog-info.php?id=' . $_POST['id'] . '#1' );
 	} else {
 		nz_add_errors( 'Eror, try again.' );
 	}
@@ -195,4 +192,50 @@ function nz_get_post() {
 	$res->execute();
 
 	return $res->fetchAll( PDO::FETCH_ASSOC );
+}
+
+/**
+ * Create_select item. 
+ *
+ */
+function nz_create_select() {
+	global $pdo;
+
+	if ( ! isset( $_POST['select-input'] ) ) {
+		return;
+	}
+
+	if ( empty( $_POST['select-input'] ) ) {
+		nz_add_errors( 'Create Your Category !!!' );
+	}
+
+	if ( nz_get_check_error() ) {
+		return;
+	}
+
+	$query = $pdo->prepare( 'INSERT INTO `categories` (text) VALUES (:category)' );
+	$query->execute(
+		array(
+			'category'   => esc_html( $_POST['select-input'] ),
+		)
+	);
+
+	if ( $query ) {
+		nz_redirect( 'index.php' );
+	} else {
+		nz_add_errors( 'Eror, try again.' );
+	}
+}
+
+/**
+ * Get Select.
+ *
+ * @return array
+ */
+function nz_get_select() {
+	global $pdo;
+
+	$query = $pdo->query( 'SELECT * FROM `categories` ORDER BY id DESC' );
+
+	return $query->fetchAll();
 }

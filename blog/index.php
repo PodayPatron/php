@@ -1,7 +1,8 @@
 <?php
 require 'functions.php';
 
-$result = nz_get_blogs_item();
+$result = nz_get_blogs_item( $_GET['category'] );
+$result_category = nz_get_select();
 nz_echo_errors();
 ?>
 <!DOCTYPE html>
@@ -69,8 +70,26 @@ nz_echo_errors();
 		<h2>Blog</h2>
 	</section>
 
+	<section class="tabs">
+		<div class="container">
+			<a class="btn" href="?category=all">All</a>
+			<?php foreach ( $result_category as $row ): ?>
+				<a class="btn" href="?category=<?php echo $row['text']; ?>"><?php echo $row['text']; ?></a>
+			<?php endforeach; ?>
+		</div>
+	</section>
+
 	<section class="blog">
 		<div class="container">
+
+			<?php 
+				if ( !$result ) { ?>
+					<div class="error-line">
+						<div class="post-error">There are no posts for this category!</div>
+					</div>
+				<?php
+				}
+			?>
 
 			<div class="row">
 				<!--ITEM 1-->
@@ -108,8 +127,10 @@ nz_echo_errors();
 								</div>
 								<div class="comments-all">
 									<span class="comments-line">
-										<i class="fal fa-comments"></i>
-										<?php echo nz_count_comments( $row['id'] ); ?>
+										<a href="blog-info.php?id=<?php echo $row['id']; ?>">
+											<i class="fal fa-comments"></i>
+											<?php echo nz_count_comments( $row['id'] ); ?>
+										</a>
 									</span>
 								</div>
 								<span>
@@ -133,6 +154,7 @@ nz_echo_errors();
 			<section class="section-create">
 				<div class="create-article">
 					<a href="create.php" class="btn btn-create-article">Create New Article</a>
+					<a href="select.php" class="btn btn-create-article">Create Category</a>
 				</div>
 			</section>
 

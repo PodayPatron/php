@@ -2482,11 +2482,19 @@ small {
 }
 
 .comments-line i {
-  margin-right: 70px;
+  margin-right: 10px;
+}
+
+.create-article {
+  display: flex;
+  flex-direction: column;
+}
+.create-article a {
+  margin-bottom: 20px;
 }
 
 .errors-wrapper {
-  position: absolute;
+  position: fixed;
   top: 130px;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -2498,6 +2506,37 @@ small {
   text-transform: uppercase;
   text-align: center;
   z-index: 1000;
+}
+
+.creating-section {
+  min-height: 100vh;
+}
+
+.tabs {
+  margin-bottom: 50px;
+}
+.tabs .container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.tabs .container .btn {
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-bottom: 10px;
+}
+
+.error-line {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.post-error {
+  padding: 20px;
+  font-size: 22px;
+  background-color: rgba(241, 79, 79, 0.349);
+  border-radius: 10px;
 }
 
 /*# sourceMappingURL=style.css.map */

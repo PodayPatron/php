@@ -1,6 +1,8 @@
 <?php
 require 'functions.php';
+
 create_item_blog();
+$result = nz_get_select();
 nz_echo_errors();
 ?>
 
@@ -76,16 +78,20 @@ nz_echo_errors();
 			<form enctype = "multipart/form-data" method="POST" class="create-main-form" method="POST">
 				<input type="file" name="uploaded_file" accept="image/jpeg,image/png">
 				<select name="category">
-					<option> -Select Category- </option>
-					<option> Clothes </option>
-					<option> Shoes </option>
-					<option> Fragrances </option>
+					<?php foreach( $result as $row ) : ?>
+						<option> 
+							<?php echo $row['text']; ?>
+						</option>
+					<?php endforeach; ?>
 				</select>
 
-				<input type="text" placeholder="Blog Title" class="form-control my-3 bg-dark text-white text-center" name="title">
-				<input type="text" placeholder="Author" class="form-control my-3 bg-dark text-white text-center" name="author">
-				<input type="text" placeholder="Short Text" class="form-control my-3 bg-dark text-white text-center" name="short-text">
-				<textarea  name="content" class="form-control my-3 bg-dark text-white" cols="30" rows="10"></textarea>
+				<input type="text" placeholder="Blog Title" class="form-control my-3 bg-dark text-white text-center"
+				name="title" value="<?php echo $_POST['title']; ?>">
+				<input type="text" placeholder="Author" class="form-control my-3 bg-dark text-white text-center"
+				name="author" value="<?php echo $_POST['author']; ?>">
+				<input type="text" placeholder="Short Text" class="form-control my-3 bg-dark text-white text-center"
+				name="short-text" value="<?php echo $_POST['short-text']; ?>">
+				<textarea  name="content" class="form-control my-3 bg-dark text-white" cols="30" rows="10"><?php echo $_POST['content']; ?></textarea>
 				<button type="submit" class="btn" name="submit">Add Article</button>
 			</form>
 
