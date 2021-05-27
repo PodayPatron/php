@@ -1,21 +1,10 @@
 <?php
 require 'functions.php';
 
-if ( ! $_SESSION['username'] ) {
-	nz_redirect( 'login.php' );
-}
-
-if ( isset( $_POST['log-out'] ) ) {
-	unset( $_SESSION['username'] );
-	nz_redirect( 'login.php' );
-}
-
 $result          = nz_get_blogs_item( $_GET['category'] );
-$result_category = nz_get_select();
-nz_echo_errors();
-
 require 'header.php';
 ?>
+
 	<header class="header-general">
 		<!-- HEADER TOP-->
 		<div class="header-top header-row color-scheme-light">
@@ -46,12 +35,12 @@ require 'header.php';
 				<div class="header-row-inner">
 					<div class="header-col header-col-left flex-align">
 						<ul class="main-nav">
-							<li class="active">
+							<li>
 								<a href="index.php">
 									Home
 								</a>
 							</li>
-							<li>
+							<li class="active">
 								<a href="posts.php">
 									Posts
 								</a>
@@ -76,38 +65,25 @@ require 'header.php';
 		</div>
 	</header>
 
-	<section class="blog-intro">
-		<h2>Blog</h2>
+	<section class="blog-intro bottom-zero">
+		<h2>Posts</h2>
 	</section>
 
-	<section class="tabs">
-		<div class="container">
-			<a class="btn" href="?category=all">All</a>
-
-			<?php foreach ( $result_category as $row ) : ?>
-				<a class="btn" href="?category=<?php echo $row['text']; ?>">
-					<?php echo $row['text']; ?>
-				</a>
-			<?php endforeach; ?>
-
+	<section class="section-create body-color">
+		<div class="create-article">
+			<a href="create.php" class="btn btn-create-article">Create New Post</a>
 		</div>
 	</section>
 
-	<section class="blog">
+	<section class="blog body-color bottom-zero">
 		<div class="container">
 
-			<?php if ( ! $result ) : ?>
-				<div class="error-line">
-					<div class="post-error">There are no posts for this category!</div>
-				</div>
-			<?php endif; ?>
-
-			<div class="row">
+			<div class="row posts-style">
 				<!--ITEM 1-->
 				<?php foreach ( $result as $row ) : ?>
 
-					<div class="col-lg-4">
-						<article class="inner-article text-center">
+					<div class="col-lg-6">
+						<article class="inner-article text-center ">
 							<div class="art-img">
 								<div class="img-scale">
 									<a href="blog-info.php?id=<?php echo $row['id']; ?>">
@@ -163,12 +139,6 @@ require 'header.php';
 
 				<?php endforeach; ?>
 			</div>
-
-			<section class="section-create">
-				<div class="create-article">
-					<a href="create_category.php" class="btn btn-create-article">Create Category</a>
-				</div>
-			</section>
 
 		</div>
 	</section> <!-- /.BLOG-->

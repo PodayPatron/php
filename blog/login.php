@@ -1,9 +1,8 @@
-<?php
+<?php 
 require 'functions.php';
 
-nz_create_select();
 nz_echo_errors();
-
+nz_login();
 require 'header.php';
 ?>
 	<header class="header-general">
@@ -29,7 +28,6 @@ require 'header.php';
 			</div>
 		</div>
 
-
 		<!--HEADER BOTTOM-->
 		<div class="header-bottom header-row">
 			<div class="container">
@@ -37,21 +35,22 @@ require 'header.php';
 				<div class="header-row-inner">
 					<div class="header-col header-col-left flex-align">
 						<ul class="main-nav">
-							<li >
-								<a href="index.php">
-									<i class="fal fa-arrow-left create-arrow-back"></i>
-									Back
-								</a></li>
 							<li class="active">
 								<a href="#">
-									Create Article
+									Log In
+								</a>
+							</li>
+
+							<li>
+								<a href="#">
+									Sing Up
 								</a>
 							</li>
 						</ul>
 					</div>
 					<div class="header-col-right">
 						<div class="disconds">
-							Winter <span class="primary-color">discounts</span> up to 40%
+							<span class="primary-color"></span> 
 						</div>
 					</div>
 				</div>
@@ -59,17 +58,22 @@ require 'header.php';
 		</div>
 	</header>
 
-	<section class="creating-section">
-		<div class="container mt-5">
+	<section class="login-section">
+		<div class="container">
 
-			<form enctype = "multipart/form-data" method="POST" class="create-main-form" method="POST">
-				<label for="">Create Select Item : </label>
-				<input type="text" name="select-input" name="input-select">
-				<button type="submit" class="btn">Create Item</button>
+			<h2>Log In</h2>
+			<form method="POST" class="login-form">
+				<label for="">Username*</label>
+				<input type="text" name="username">
+				<label for="">Password*</label>
+				<input type="text" name="password">
+				<button class="btn" type="submit" name="submit-login">Send</button>
 			</form>
 
 		</div>
 	</section>
+
+
 <?php 
 require 'footer.php';
 ?>

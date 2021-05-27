@@ -1,8 +1,7 @@
 <?php
 require 'functions.php';
 
-create_item_blog();
-$result = nz_get_select();
+nz_create_select();
 nz_echo_errors();
 
 require 'header.php';
@@ -64,29 +63,13 @@ require 'header.php';
 		<div class="container mt-5">
 
 			<form enctype = "multipart/form-data" method="POST" class="create-main-form" method="POST">
-				<input type="file" name="uploaded_file" accept="image/jpeg,image/png" aria-label="img update">
-				<select name="category">
-					<?php foreach ( $result as $row ) : ?>
-						<option> 
-							<?php echo $row['text']; ?>
-						</option>
-					<?php endforeach; ?>
-				</select>
-
-				<input type="text" placeholder="Blog Title" class="form-control my-3 bg-dark text-white text-center"
-				name="title" value="<?php echo $_POST['title']; ?>" aria-label="title">
-				<input type="text" placeholder="Author" class="form-control my-3 bg-dark text-white text-center"
-				name="author" value="<?php echo $_POST['author']; ?>" aria-label="author">
-				<input type="text" placeholder="Short Text" class="form-control my-3 bg-dark text-white text-center"
-				name="short-text" value="<?php echo $_POST['short-text']; ?>" aria-label="short text">
-				<textarea  name="content" class="form-control my-3 bg-dark text-white" cols="30" rows="10" aria-label="text">
-					<?php echo $_POST['content']; ?>
-				</textarea>
-				<button type="submit" class="btn" name="submit" aria-label="button Add">Add Article</button>
+				<label for="">Create Category Item : </label>
+				<input type="text" name="select-input">
+				<button type="submit" class="btn" aria-label="button add">Create Item</button>
 			</form>
 
 		</div>
 	</section>
-<?php
+<?php 
 require 'footer.php';
 ?>

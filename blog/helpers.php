@@ -25,7 +25,7 @@ function ar( $data ) {
  * Adding errors.
  *
  * @param string $string errors string.
- * @param string $type type errors.
+ * @param string $type errors.
  */
 function nz_add_errors( $string, $type = 'danger' ) {
 	$_SESSION['errors'][ $type ][] = $string;

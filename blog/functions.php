@@ -1,4 +1,6 @@
 <?php
+	session_start();
+
 	require 'helpers.php';
 
 	$dsn = 'mysql:host=192.168.1.132;dbname=blog';
@@ -7,11 +9,57 @@
 /**
  * Redirect.
  *
- * @param  mixed $data
+ * @param  mixed $url for redirect
  */
-function nz_redirect( $data ) {
-	header( 'Location: ' . $data );
+function nz_redirect( $url ) {
+	header( 'Location: ' . $url );
 }
+
+/**
+ * Login form.
+ */
+function nz_login() {
+	global $pdo;
+
+	if ( ! isset( $_POST['submit-login'] ) ) {
+		return;
+	}
+
+	if ( empty( $_POST['username'] ) ) {
+		nz_add_errors( 'Input Your Username' );
+	}
+
+	if ( empty( $_POST['password'] ) ) {
+		nz_add_errors( 'Input Your Password' );
+	}
+
+	if ( nz_get_check_error() ) {
+		return;
+	}
+
+	$query = $pdo->prepare( 'SELECT * FROM `login` WHERE username = :username' );
+	$query->execute(
+		array(
+			':username' => esc_html( $_POST['username'] ),
+		)
+	);
+
+	$result = $query->fetchAll();
+
+	foreach ( $result as $val ) {
+		if ( $val['username'] === $_POST['username'] && password_verify( $_POST['password'], $val['password'] ) ) {
+			$_SESSION['username'] = $val['username'];
+		}
+	}
+
+	if ( ! $_SESSION['username'] ) {
+		nz_add_errors( 'Password Wrong !' );
+		return;
+	}
+
+	nz_redirect( 'index.php' );
+}
+
 
 /**
  * Get blogs item.
@@ -222,7 +270,7 @@ function nz_create_select() {
 	if ( $query ) {
 		nz_redirect( 'index.php' );
 	} else {
-		nz_add_errors( 'Eror, try again.' );
+		nz_add_errors( 'Error, try again.' );
 	}
 }
 

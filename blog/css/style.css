@@ -2259,7 +2259,7 @@ small {
 }
 
 .date {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .blog-title {
@@ -2537,6 +2537,36 @@ small {
   font-size: 22px;
   background-color: rgba(241, 79, 79, 0.349);
   border-radius: 10px;
+}
+
+.login-section {
+  padding-top: 200px;
+  min-height: 100vh;
+  background-color: #f8f8f8;
+}
+.login-section .container {
+  background-color: #fff;
+  padding: 50px;
+  box-shadow: 0px 0px 20px 0px #9e3c3c;
+}
+
+.login-form {
+  padding: 20px;
+}
+.login-form input {
+  margin-bottom: 20px;
+}
+
+.posts-style .col-lg-6 {
+  margin-bottom: 30px;
+}
+
+.body-color {
+  background-color: #f8f8f8;
+}
+
+.bottom-zero {
+  margin-bottom: 0;
 }
 
 /*# sourceMappingURL=style.css.map */
