@@ -1,7 +1,11 @@
 <?php
 require 'functions.php';
 
-$result          = nz_get_blogs_item( $_GET['category'] );
+$result = nz_get_blogs_item( $_GET['category'] );
+nz_remove_item();
+
+update_item_blog();
+
 require 'header.php';
 ?>
 
@@ -82,12 +86,12 @@ require 'header.php';
 				<!--ITEM 1-->
 				<?php foreach ( $result as $row ) : ?>
 
-					<div class="col-lg-6">
+					<div class="col-lg-2">
 						<article class="inner-article text-center ">
 							<div class="art-img">
 								<div class="img-scale">
 									<a href="blog-info.php?id=<?php echo $row['id']; ?>">
-										<img src="./uploads/<?php echo $row['img']; ?>" alt="image">
+										<img class="img-blog" src="./uploads/<?php echo $row['img']; ?>" alt="image">
 									</a>
 								</div>
 							</div>
@@ -96,7 +100,8 @@ require 'header.php';
 									<?php echo $row['category']; ?>
 								</a>
 							</div>
-							<div class="artic-text">
+						</article>
+						<div class="artic-text post-text">
 								<h5 class="blog-title">
 									<a href="blog-info.php?id=<?php echo $row['id']; ?>">
 										<?php echo $row['title']; ?>
@@ -127,14 +132,21 @@ require 'header.php';
 								</span>
 								<footer class="article-footer">
 									<div class="continue">
-										<a href="blog-info.php?id=<?php echo $row['id']; ?>">
-											Continue reading
+										<a class="btn" href="edit-page.php?id=<?php echo $row['id']; ?>">
+											Edit
+											<i class="fal fa-pen"></i>
+										</a>
+										<a class="btn" href="?delete-btn=<?php echo $row['id']; ?>">
+											Delete
+											<i class="fal fa-trash-alt"></i>
+										</a>
+										<a class="btn" href="blog-info.php?id=<?php echo $row['id']; ?>">
+											View
 											<i class="fal fa-arrow-right continue-arrow"></i>
 										</a>
 									</div>
 								</footer>
 							</div>
-						</article>
 					</div>
 
 				<?php endforeach; ?>

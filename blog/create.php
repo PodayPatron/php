@@ -79,9 +79,7 @@ require 'header.php';
 				name="author" value="<?php echo $_POST['author']; ?>" aria-label="author">
 				<input type="text" placeholder="Short Text" class="form-control my-3 bg-dark text-white text-center"
 				name="short-text" value="<?php echo $_POST['short-text']; ?>" aria-label="short text">
-				<textarea  name="content" class="form-control my-3 bg-dark text-white" cols="30" rows="10" aria-label="text">
-					<?php echo $_POST['content']; ?>
-				</textarea>
+				<textarea  name="content" class="form-control my-3 bg-dark text-white" cols="30" rows="10" aria-label="text"><?php echo $_POST['content']; ?></textarea>
 				<button type="submit" class="btn" name="submit" aria-label="button Add">Add Article</button>
 			</form>
 

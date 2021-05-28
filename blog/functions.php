@@ -268,7 +268,7 @@ function nz_create_select() {
 	);
 
 	if ( $query ) {
-		nz_redirect( 'index.php' );
+		nz_redirect( 'categories.php' );
 	} else {
 		nz_add_errors( 'Error, try again.' );
 	}
@@ -285,4 +285,84 @@ function nz_get_select() {
 	$query = $pdo->query( 'SELECT * FROM `categories` ORDER BY id DESC' );
 
 	return $query->fetchAll();
+}
+
+/**
+ * Remove item from Blog.
+ */
+function nz_remove_item() {
+	global $pdo;
+
+	if ( ! isset( $_GET['delete-btn'] ) ) {
+		return;
+	}
+
+	$id    = esc_html( $_GET['delete-btn'] );
+	$query = $pdo->prepare( 'DELETE FROM `blogs` WHERE `id` = ?' );
+	$query->execute( array( $id ) );
+
+	if ( $query ) {
+		nz_redirect( 'posts.php' );
+	}
+}
+
+/**
+ * Remove category.
+ */
+function nz_remove_category() {
+	global $pdo;
+
+	if ( ! isset( $_GET['delete-categ'] ) ) {
+		return;
+	}
+
+	$id    = esc_html( $_GET['delete-categ'] );
+	$query = $pdo->prepare( 'DELETE FROM `categories` WHERE `id` = ?' );
+	$query->execute( array( $id ) );
+
+	if ( $query ) {
+		nz_redirect( 'categories.php' );
+	}
+}
+
+/**
+ * Edit button.
+ *
+ * @param  mixed $id
+ * @return array
+ */
+function nz_edit_btn( $id ) {
+	global $pdo;
+
+	$res = $pdo->prepare( 'SELECT * FROM `blogs` WHERE id=:id' );
+	$res->bindParam( ':id', esc_html( $id ) );
+	$res->execute();
+	$result = $res->fetchAll();
+
+	return $result;
+}
+
+/**
+ * Update data task.
+ */
+function update_item_blog() {
+	global $pdo;
+
+	if ( ! isset( $_POST['send_update'] ) ) {
+		return;
+	}
+
+	$update_item = $pdo->prepare(
+		'UPDATE `blogs` 
+		SET title = :title, short_text = :short_text, text = :content, category = :category 
+		WHERE id = :id'
+	);
+	$update_item->bindParam( ':id', esc_html( $_POST['id'] ) );
+	$update_item->bindParam( ':title', esc_html( $_POST['update'] ) );
+	$update_item->bindParam( ':short_text', esc_html( $_POST['update-short'] ) );
+	$update_item->bindParam( ':content', esc_html( $_POST['content'] ) );
+	$update_item->bindParam( ':category', esc_html( $_POST['category'] ) );
+	$update_item->execute();
+
+	nz_redirect( 'posts.php' );
 }

@@ -166,7 +166,7 @@ require 'header.php';
 
 			<section class="section-create">
 				<div class="create-article">
-					<a href="create_category.php" class="btn btn-create-article">Create Category</a>
+					<!-- <a href="create_category.php" class="btn btn-create-article">Create Category</a> -->
 				</div>
 			</section>
 

@@ -2513,6 +2513,7 @@ small {
 }
 
 .tabs {
+  padding: 20px;
   margin-bottom: 50px;
 }
 .tabs .container {
@@ -2557,8 +2558,39 @@ small {
   margin-bottom: 20px;
 }
 
-.posts-style .col-lg-6 {
+.posts-style {
+  flex-direction: column;
+}
+.posts-style .col-lg-2 {
+  display: flex;
+  width: 100%;
+  max-width: 990px;
   margin-bottom: 30px;
+}
+
+.post-text .date {
+  margin-bottom: 10px;
+}
+.post-text .article-footer {
+  justify-content: flex-start;
+}
+.post-text .continue {
+  display: flex;
+  align-items: center;
+}
+.post-text .continue a {
+  color: #fff;
+}
+.post-text .continue a i {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.post-text .comments-all {
+  margin-bottom: 10px;
+}
+
+.img-blog {
+  max-width: 170px;
 }
 
 .body-color {
@@ -2567,6 +2599,51 @@ small {
 
 .bottom-zero {
   margin-bottom: 0;
+}
+
+.btn-view {
+  display: inline-block;
+  min-height: 44px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.form-style {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 50px;
+  width: 760px;
+  margin: 0 auto;
+  background-color: #a79c9c;
+  z-index: 1000;
+}
+.form-style button {
+  height: 40px;
+  width: 120px;
+  margin-top: 15px;
+}
+.form-style label {
+  color: #fff;
+  font-size: 18px;
+}
+
+.tabs2 {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  flex-direction: column;
+  width: 100%;
+  max-width: 80px;
+}
+
+.block-categ {
+  display: flex;
+  flex-direction: column;
+}
+.block-categ a {
+  display: flex;
+  justify-content: center;
 }
 
 /*# sourceMappingURL=style.css.map */

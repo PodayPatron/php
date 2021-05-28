@@ -1,4 +1,9 @@
 <?php
+require 'functions.php';
+
+$result_category = nz_get_select();
+nz_remove_category();
+
 require 'header.php';
 ?>
 
@@ -63,7 +68,24 @@ require 'header.php';
 	</header>
 
 	<section class="blog-intro bottom-zero">
-		<h2>Posts</h2>
+		<h2>Categories</h2>
+	</section>
+
+	<section class="tabs body-color bottom-zero">
+		<div class="container">
+
+			<?php foreach ( $result_category as $row ) : ?>
+				<div class="block-categ">
+					<a class="btn" href="?category=<?php echo $row['text']; ?>">
+						<?php echo $row['text']; ?>
+					</a>
+					<a class="btn" href="?delete-categ=<?php echo $row['id']; ?>">
+						<i class="fal fa-trash-alt"></i>
+					</a>
+				</div>
+			<?php endforeach; ?>
+
+		</div>
 	</section>
 
 	<section class="section-create body-color">
