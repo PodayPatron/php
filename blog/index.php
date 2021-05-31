@@ -1,14 +1,8 @@
 <?php
 require 'functions.php';
 
-if ( ! $_SESSION['username'] ) {
-	nz_redirect( 'login.php' );
-}
-
-if ( isset( $_POST['log-out'] ) ) {
-	unset( $_SESSION['username'] );
-	nz_redirect( 'login.php' );
-}
+nz_user_initialisation();
+nz_exit();
 
 $result          = nz_get_blogs_item( $_GET['category'] );
 $result_category = nz_get_select();

@@ -2310,6 +2310,8 @@ small {
   padding: 10px;
   font-size: 14px;
   color: rgba(16, 16, 16, 0.8);
+  margin-left: 5px;
+  margin-right: 5px;
 }
 .continue a i {
   font-weight: 500;
@@ -2628,22 +2630,36 @@ small {
   font-size: 18px;
 }
 
-.tabs2 {
+.column {
   display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
   flex-direction: column;
-  width: 100%;
-  max-width: 80px;
 }
 
 .block-categ {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  background-color: #b8b3b340;
+  padding-top: 10px;
+  margin-bottom: 15px;
 }
-.block-categ a {
-  display: flex;
-  justify-content: center;
+
+.todo-form {
+  position: fixed;
+  top: 250px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #e3dede;
+}
+
+.style-btn {
+  background: transparent;
+  border: 0;
+  color: #333;
+  font-size: 16px;
+}
+.style-btn:hover {
+  background-color: transparent;
+  cursor: default;
 }
 
 /*# sourceMappingURL=style.css.map */

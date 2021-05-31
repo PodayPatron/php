@@ -3,6 +3,10 @@ require 'functions.php';
 
 $result_category = nz_get_select();
 nz_remove_category();
+nz_update_category();
+nz_edit_category_btn();
+nz_echo_errors();
+nz_exit();
 
 require 'header.php';
 ?>
@@ -71,24 +75,32 @@ require 'header.php';
 		<h2>Categories</h2>
 	</section>
 
-	<section class="tabs body-color bottom-zero">
-		<div class="container">
+	<section class="tabs bottom-zero">
+		<div class="container column">
 
 			<?php foreach ( $result_category as $row ) : ?>
 				<div class="block-categ">
-					<a class="btn" href="?category=<?php echo $row['text']; ?>">
+					<a class="btn style-btn" href="?category=<?php echo $row['text']; ?>">
 						<?php echo $row['text']; ?>
 					</a>
-					<a class="btn" href="?delete-categ=<?php echo $row['id']; ?>">
-						<i class="fal fa-trash-alt"></i>
-					</a>
+
+					<div>
+						<a class="btn" href="?edit-categ-btn=<?php echo $row['id']; ?>">
+							Edit
+							<i class="fal fa-pen"></i>
+						</a>
+						<a class="btn" href="?delete-categ=<?php echo $row['id']; ?>">
+							Delete
+							<i class="fal fa-trash-alt"></i>
+						</a>
+					</div>
 				</div>
 			<?php endforeach; ?>
 
 		</div>
 	</section>
 
-	<section class="section-create body-color">
+	<section class="section-create">
 		<div class="create-article">
 			<a href="create_category.php" class="btn btn-create-article">Create Category</a>
 		</div>

@@ -13,6 +13,7 @@
  */
 function nz_redirect( $url ) {
 	header( 'Location: ' . $url );
+	die();
 }
 
 /**
@@ -60,10 +61,34 @@ function nz_login() {
 	nz_redirect( 'index.php' );
 }
 
+/**
+ * Exit from account.
+ *
+ * @return void
+ */
+function nz_exit() {
+	if ( isset( $_POST['log-out'] ) ) {
+		unset( $_SESSION['username'] );
+		nz_redirect( 'login.php' );
+	}
+}
+
+/**
+ * User initialisation.
+ *
+ * @return void
+ */
+function nz_user_initialisation() {
+	if ( ! $_SESSION['username'] ) {
+		nz_redirect( 'login.php' );
+	}
+}
+
 
 /**
  * Get blogs item.
  *
+ * @param string $category Category.
  * @return array
  */
 function nz_get_blogs_item( $category = '' ) {
@@ -81,7 +106,7 @@ function nz_get_blogs_item( $category = '' ) {
 }
 
 /**
- * Create item blog.
+ * Create Item Blog.
  */
 function create_item_blog() {
 	global $pdo;
@@ -142,6 +167,7 @@ function create_item_blog() {
 	);
 
 	if ( $query ) {
+		nz_add_errors( 'Post is Created!' );
 		nz_redirect( 'index.php' );
 	} else {
 		nz_add_errors( 'File upload failed, please try again.' );
@@ -151,7 +177,7 @@ function create_item_blog() {
 /**
  * Get Comments.
  *
- * @param mixed $id
+ * @param int $id Id coment.
  * @return array
  */
 function nz_get_comments( $id ) {
@@ -165,9 +191,9 @@ function nz_get_comments( $id ) {
 }
 
 /**
- * Count comments.
+ * Count Comments.
  *
- * @param  mixed $id
+ * @param int $id Id coment.
  * @return array
  */
 function nz_count_comments( $id ) {
@@ -181,7 +207,7 @@ function nz_count_comments( $id ) {
 }
 
 /**
- * Create comment.
+ * Create Comment.
  */
 function nz_create_comment() {
 	global $pdo;
@@ -224,7 +250,7 @@ function nz_create_comment() {
 }
 
 /**
- * Get post.
+ * Get Post.
  *
  * @return array
  */
@@ -243,7 +269,7 @@ function nz_get_post() {
 }
 
 /**
- * Create_select item.
+ * Create Select Item.
  */
 function nz_create_select() {
 	global $pdo;
@@ -268,6 +294,7 @@ function nz_create_select() {
 	);
 
 	if ( $query ) {
+		nz_add_errors( 'Category is Created!' );
 		nz_redirect( 'categories.php' );
 	} else {
 		nz_add_errors( 'Error, try again.' );
@@ -328,7 +355,7 @@ function nz_remove_category() {
 /**
  * Edit button.
  *
- * @param  mixed $id
+ * @param int $id Id items from blogs.
  * @return array
  */
 function nz_edit_btn( $id ) {
@@ -337,13 +364,12 @@ function nz_edit_btn( $id ) {
 	$res = $pdo->prepare( 'SELECT * FROM `blogs` WHERE id=:id' );
 	$res->bindParam( ':id', esc_html( $id ) );
 	$res->execute();
-	$result = $res->fetchAll();
 
-	return $result;
+	return $res->fetchAll();
 }
 
 /**
- * Update data task.
+ * Update Data Task.
  */
 function update_item_blog() {
 	global $pdo;
@@ -365,4 +391,56 @@ function update_item_blog() {
 	$update_item->execute();
 
 	nz_redirect( 'posts.php' );
+}
+
+/**
+ * Edit Category Button.
+ *
+ * @return void
+ */
+function nz_edit_category_btn() {
+	global $pdo;
+
+	if ( ! isset( $_GET['edit-categ-btn'] ) ) {
+		return;
+	}
+
+	$res = $pdo->prepare( 'SELECT * FROM `categories` WHERE id=:id' );
+	$res->bindParam( ':id', esc_html( $_GET['edit-categ-btn'] ) );
+	$res->execute();
+	$result = $res->fetchAll();
+
+	foreach ( $result as $row ) {
+		?>
+			<form class="todo-form form-style" method="POST">
+				<input id="task" name="update" value="<?php echo $row['text']; ?>" type="text">
+				<button type="submit" name="send-update" class="btn btn-outline-success btn-add">Update</button>
+				<input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+			</form>
+		<?php
+	}
+}
+
+/**
+ * Update Category.
+ *
+ * @return void
+ */
+function nz_update_category() {
+	global $pdo;
+
+	if ( ! isset( $_POST['send-update'] ) ) {
+		return;
+	}
+
+	$update_task = $pdo->prepare( 'UPDATE `categories` SET text = :text WHERE id = :id' );
+	$update_task->bindParam( ':id', esc_html( $_POST['id'] ) );
+	$update_task->bindParam( ':text', esc_html( $_POST['update'] ) );
+	$result = $update_task->execute();
+
+	if ( $result ) {
+		nz_add_errors( 'Category is renamed!' );
+		nz_redirect( 'categories.php' );
+	}
+
 }

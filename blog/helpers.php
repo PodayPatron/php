@@ -1,19 +1,18 @@
-<?php
+<?
+
 /**
- * Esc_html
+ * Renders data.
  *
- * @param  mixed $data
- * renders data
+ * @param mixed $data Data.
  */
 function esc_html( $data ) {
 	return htmlspecialchars( trim( $data ) );
 }
 
 /**
- * Ar
+ * Array output.
  *
- * @param  mixed $data => array
- * array output
+ * @param array $data Array data.
  */
 function ar( $data ) {
 	echo '<pre>';

@@ -3,8 +3,8 @@ require 'functions.php';
 
 $result = nz_get_blogs_item( $_GET['category'] );
 nz_remove_item();
-
 update_item_blog();
+nz_exit();
 
 require 'header.php';
 ?>
@@ -73,13 +73,13 @@ require 'header.php';
 		<h2>Posts</h2>
 	</section>
 
-	<section class="section-create body-color">
+	<section class="section-create">
 		<div class="create-article">
 			<a href="create.php" class="btn btn-create-article">Create New Post</a>
 		</div>
 	</section>
 
-	<section class="blog body-color bottom-zero">
+	<section class="blog  bottom-zero" style="padding: 0px;">
 		<div class="container">
 
 			<div class="row posts-style">
@@ -95,11 +95,6 @@ require 'header.php';
 									</a>
 								</div>
 							</div>
-							<div class="artic-category">
-								<a href="?category=<?php echo $row['category']; ?>">
-									<?php echo $row['category']; ?>
-								</a>
-							</div>
 						</article>
 						<div class="artic-text post-text">
 								<h5 class="blog-title">
@@ -107,29 +102,7 @@ require 'header.php';
 										<?php echo $row['title']; ?>
 									</a>
 								</h5>
-								<div class="date">
-									<span class="date-text">
-										<?php echo $row['date']; ?>
-									</span>
-									<span class="date-text">
-										<img class="author" src="./uploads/merak-testimonials-2.jpg" alt="img author">
-										By
-									</span>
-									<span>
-										<?php echo $row['author']; ?>
-									</span>
-								</div>
-								<div class="comments-all">
-									<span class="comments-line">
-										<a href="blog-info.php?id=<?php echo $row['id'] . '#1'; ?>">
-											<i class="fal fa-comments"></i>
-											<?php echo nz_count_comments( $row['id'] ); ?>
-										</a>
-									</span>
-								</div>
-								<span>
-									<?php echo $row['short_text']; ?>
-								</span>
+
 								<footer class="article-footer">
 									<div class="continue">
 										<a class="btn" href="edit-page.php?id=<?php echo $row['id']; ?>">

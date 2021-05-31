@@ -1,8 +1,8 @@
-<?php 
+<?php
 require 'functions.php';
 
-nz_echo_errors();
 nz_login();
+nz_echo_errors();
 require 'header.php';
 ?>
 	<header class="header-general">
@@ -64,7 +64,7 @@ require 'header.php';
 			<h2>Log In</h2>
 			<form method="POST" class="login-form">
 				<label for="">Username*</label>
-				<input type="text" name="username">
+				<input type="text" name="username" value="<?php echo $_POST['username']; ?>">
 				<label for="">Password*</label>
 				<input type="text" name="password">
 				<button class="btn" type="submit" name="submit-login">Send</button>
@@ -74,6 +74,6 @@ require 'header.php';
 	</section>
 
 
-<?php 
+<?php
 require 'footer.php';
 ?>
